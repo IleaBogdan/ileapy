@@ -1,4 +1,4 @@
-name: Build and Release Fractalii
+name: Build and Release ileapy
 
 on:
   push:
