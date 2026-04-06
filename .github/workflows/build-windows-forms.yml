@@ -19,30 +19,25 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+    
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v2
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: '8.0.x'
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v2
+    
+    - name: Restore NuGet packages
+      run: nuget restore ileapy.sln
 
     - name: Restore dependencies
       run: dotnet restore
 
     - name: Build project
-      run: dotnet build --configuration Release
+      run: msbuild ileapy.csproj /p:Configuration=Release /p:Platform="Any CPU"
 
-    - name: Publish as single-file exe with embedded icon
+    - name: Publish as single-file executable
       run: |
-        dotnet publish ileapy.csproj `
-          --configuration Release `
-          --runtime win-x64 `
-          --self-contained true `
-          --output ./publish `
-          -p:PublishSingleFile=true `
-          -p:IncludeNativeLibrariesForSelfExtract=true `
-          -p:EnableCompressionInSingleFile=true `
-          -p:DebugType=None `
-          -p:DebugSymbols=false
+        msbuild ileapy.csproj /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=./publish /p:PostBuildEvent= /target:Publish
 
     - name: Upload Release to GitHub
       uses: softprops/action-gh-release@v2
