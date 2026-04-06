@@ -23,6 +23,9 @@ namespace ileapy
         {
             InitializeComponent();
             InitCurrecnys();
+            this.Currency_ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            this.Currency_ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
+            this.Currency_ComboBox.DropDownStyle = ComboBoxStyle.DropDown;
             set_balance(1000000000.1);
         }
         private void InitCurrecnys()
@@ -70,6 +73,10 @@ namespace ileapy
         {
             //Console.WriteLine(RevCurrencys["" + this.Currency_ComboBox.SelectedItem]);
             string from =Selected_Currency;
+            if(!RevCurrencys.ContainsKey("" + this.Currency_ComboBox.SelectedItem))
+            {
+                return;
+            }
             string to = RevCurrencys["" + this.Currency_ComboBox.SelectedItem];
             double multiplier = CurrencyConverter.CoinDiff(from, to);
             if (multiplier < 0)
