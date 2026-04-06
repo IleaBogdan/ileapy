@@ -1,4 +1,7 @@
-﻿using System;
+﻿// api docs: https://github.com/fawazahmed0/exchange-api
+// use curl to test in terminal and do not pip it, it will break your system again
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
