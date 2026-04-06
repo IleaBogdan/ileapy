@@ -19,26 +19,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    
+
     - name: Setup MSBuild
       uses: microsoft/setup-msbuild@v2
 
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v2
-    
-    - name: Restore NuGet packages
-      run: nuget restore ileapy.sln
-
-    - name: Restore dependencies
-      run: dotnet restore
-
     - name: Build project
-      run: msbuild ileapy.csproj /p:Configuration=Release /p:Platform="Any CPU"
-
-    - name: Publish as single-file executable
-      run: |
-        msbuild ileapy.csproj /p:Configuration=Release /p:Platform="Any CPU" /p:OutputPath=./publish /p:PostBuildEvent= /target:Publish
-
+      run: msbuild ileapy.csproj /p:Configuration=Release /p:Platform=AnyCPU /p:OutputPath=bin\Release
+    
     - name: Upload Release to GitHub
       uses: softprops/action-gh-release@v2
       with:
@@ -49,4 +36,4 @@ jobs:
           Just download and run the .exe file.
           Note that this is only in Beta phase. 
           Any issues that may occur should be announce to get fixed.
-        files: ./publish/*.exe
+        files: ./bin/Release/*.exe
