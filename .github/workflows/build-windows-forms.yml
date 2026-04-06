@@ -1,0 +1,57 @@
+name: Build and Release Fractalii
+
+on:
+  push:
+    branches: 
+      - master
+    paths-ignore:
+      - '**.md'
+      - '**.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore dependencies
+      run: dotnet restore
+
+    - name: Build project
+      run: dotnet build --configuration Release
+
+    - name: Publish as single-file exe with embedded icon
+      run: |
+        dotnet publish ileapy.csproj `
+          --configuration Release `
+          --runtime win-x64 `
+          --self-contained true `
+          --output ./publish `
+          -p:PublishSingleFile=true `
+          -p:IncludeNativeLibrariesForSelfExtract=true `
+          -p:EnableCompressionInSingleFile=true `
+          -p:DebugType=None `
+          -p:DebugSymbols=false
+
+    - name: Upload Release to GitHub
+      uses: softprops/action-gh-release@v2
+      with:
+        tag_name: v${{ github.run_number }}
+        name: ileapy Release v${{ github.run_number }}
+        body: |
+          Standalone executable for ileapy.
+          Just download and run the .exe file.
+          Note that this is only in Beta phase. 
+          Any issues that may occur should be announce to get fixed.
+        files: ./publish/*.exe
