@@ -32,11 +32,12 @@ namespace ileapy
         {
             this.Convert_Button = new System.Windows.Forms.Button();
             this.balance_label = new System.Windows.Forms.Label();
+            this.Currency_ComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // Convert_Button
             // 
-            this.Convert_Button.Location = new System.Drawing.Point(356, 137);
+            this.Convert_Button.Location = new System.Drawing.Point(352, 137);
             this.Convert_Button.Name = "Convert_Button";
             this.Convert_Button.Size = new System.Drawing.Size(62, 27);
             this.Convert_Button.TabIndex = 0;
@@ -55,11 +56,20 @@ namespace ileapy
             this.balance_label.Text = "label1";
             this.balance_label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // Currency_ComboBox
+            // 
+            this.Currency_ComboBox.FormattingEnabled = true;
+            this.Currency_ComboBox.Location = new System.Drawing.Point(324, 110);
+            this.Currency_ComboBox.Name = "Currency_ComboBox";
+            this.Currency_ComboBox.Size = new System.Drawing.Size(121, 21);
+            this.Currency_ComboBox.TabIndex = 2;
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.Currency_ComboBox);
             this.Controls.Add(this.balance_label);
             this.Controls.Add(this.Convert_Button);
             this.Name = "HomePage";
@@ -73,6 +83,7 @@ namespace ileapy
 
         private System.Windows.Forms.Button Convert_Button;
         private System.Windows.Forms.Label balance_label;
+        private System.Windows.Forms.ComboBox Currency_ComboBox;
     }
 }
 

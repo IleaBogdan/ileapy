@@ -33,7 +33,13 @@ namespace ileapy
                     if (match != null)
                     {
                         int index = match.index;
-                        return Convert.ToDouble(data[index+1]);
+                        try
+                        {
+                            return Convert.ToDouble(data[index + 1]);
+                        }
+                        catch {
+                            return -1;
+                        }
                     }
                     throw new ArgumentException("Wrong conversion rate");
                 }
