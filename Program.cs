@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace ileapy
 {
@@ -15,7 +16,14 @@ namespace ileapy
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new HomePage());
+
+            if (!Cache.IsLogin())
+            {
+                // display login menu and stuff
+                Application.Run(new LoginPage());
+            }
+
+                Application.Run(new HomePage());
         }
     }
 }

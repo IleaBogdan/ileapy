@@ -89,5 +89,22 @@ namespace ileapy
                                             )));
             Selected_Currency = to;
         }
+
+        private void cardsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
+        {
+            this.Validate();
+            this.cardsBindingSource.EndEdit();
+            this.tableAdapterManager.UpdateAll(this.ileapyDataSet);
+        }
+
+        private void HomePage_Load(object sender, EventArgs e)
+        {
+            // TODO: This line of code loads data into the 'ileapyDataSet.Users' table. You can move, or remove it, as needed.
+            this.usersTableAdapter.Fill(this.ileapyDataSet.Users);
+            // TODO: This line of code loads data into the 'ileapyDataSet.Transactions' table. You can move, or remove it, as needed.
+            this.transactionsTableAdapter.Fill(this.ileapyDataSet.Transactions);
+            // TODO: This line of code loads data into the 'ileapyDataSet.Cards' table. You can move, or remove it, as needed.
+            this.cardsTableAdapter.Fill(this.ileapyDataSet.Cards);
+        }
     }
 }
