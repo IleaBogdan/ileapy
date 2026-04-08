@@ -123,7 +123,7 @@ namespace ileapy
             this.cardsTabControl.Multiline = true;
             this.cardsTabControl.Name = "cardsTabControl";
             this.cardsTabControl.SelectedIndex = 0;
-            this.cardsTabControl.Size = new System.Drawing.Size(547, 489);
+            this.cardsTabControl.Size = new System.Drawing.Size(547, 234);
             this.cardsTabControl.TabIndex = 5;
             // 
             // HomePage

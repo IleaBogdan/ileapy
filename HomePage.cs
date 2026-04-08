@@ -31,6 +31,7 @@ namespace ileapy
             // this should be part of the init components, but VS will scream at me if I put it there
             this.cardsTabControl.TabPages.Clear();
             this.cardsTabControl.Selecting += cardsTabControl_Selecting;
+            this.cardsTabControl.Resize += cardsTabControl_Resize;
             add_tab();
 
             InitCurrecnys();
@@ -54,6 +55,15 @@ namespace ileapy
             if (!isLoggingOut)
             {
                 Program.program_state = false;
+            }
+        }
+
+        void cardsTabControl_Resize(object sender, EventArgs e)
+        {
+            // Re-center controls for all tabs when the tab control is resized
+            foreach (TabButtons tb in tabList)
+            {
+                tb.UpdateControlPositions();
             }
         }
 
@@ -97,6 +107,7 @@ namespace ileapy
             if (new_text[new_text.Length - 3] != '.') new_text += ".00";
             this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Text = new_text + " " + RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem];
             this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Left = (this.ClientSize.Width - this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Width) / 2;
+            this.tabList[this.cardsTabControl.SelectedIndex].UpdateControlPositions();
         }
         private void ConvertButton_Click(object sender, EventArgs e)
         {
@@ -128,24 +139,28 @@ namespace ileapy
 
         private void add_tab()
         {
-            
-            TabButtons tb=new TabButtons();
-
+            TabButtons tb = new TabButtons();
             tb.Convert_Button.Click += new System.EventHandler(this.ConvertButton_Click);
-            // add the function to the button stuff
 
             this.tabList.Add(tb);
 
-            TabPage myTabPage = new TabPage("Card "+ (this.cardsTabControl.TabPages.Count+1).ToString());
+            TabPage myTabPage = new TabPage("Card " + (this.cardsTabControl.TabPages.Count + 1).ToString());
+
+            // Add controls to tab page
             myTabPage.Controls.Add(tb.balance_label);
             myTabPage.Controls.Add(tb.Currency_ComboBox);
             myTabPage.Controls.Add(tb.Convert_Button);
+
             myTabPage.Location = new System.Drawing.Point(8, 22);
             myTabPage.Padding = new System.Windows.Forms.Padding(3);
             myTabPage.Size = new System.Drawing.Size(539, 463);
             myTabPage.TabIndex = 0;
             myTabPage.UseVisualStyleBackColor = true;
+
             this.cardsTabControl.TabPages.Add(myTabPage);
+
+            // Center the controls in tab
+            tb.CenterControls(myTabPage);
         }
     }
 }
