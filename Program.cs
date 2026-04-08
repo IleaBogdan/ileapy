@@ -37,6 +37,7 @@ namespace ileapy
 
                 if (Cache.IsLogin())
                 {
+                    Cache.init();
                     using (var homePage = new HomePage())
                     {
                         Application.Run(homePage);

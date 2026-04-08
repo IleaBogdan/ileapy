@@ -32,7 +32,11 @@ namespace ileapy
             this.cardsTabControl.TabPages.Clear();
             this.cardsTabControl.Selecting += cardsTabControl_Selecting;
             this.cardsTabControl.Resize += cardsTabControl_Resize;
-            add_tab();
+            for (int i = 0; i < Cache.card_list.Count; ++i)
+            {
+                add_tab();
+                set_balance(Cache.card_list[i].Amount,i);
+            }
 
             InitCurrecnys();
 
@@ -40,7 +44,6 @@ namespace ileapy
             this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
             this.cardsTableAdapter = Program.GlobalDataManager.cardsTableAdapter;
 
-            set_balance(1000000000.1);
             this.FormClosing += HomePage_FormClosing;
             isLoggingOut = false;
             this.username_display_label.Text +="\n"+ Cache.uname;
@@ -109,6 +112,23 @@ namespace ileapy
             this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Left = (this.ClientSize.Width - this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Width) / 2;
             this.tabList[this.cardsTabControl.SelectedIndex].UpdateControlPositions();
         }
+        private void set_balance(double new_balance,int index)
+        {
+            string new_text = Convert.ToDouble(String.Format("{0:0.00}", new_balance)).ToString();
+            if (new_text[new_text.Length - 2] == '.') new_text += "0";
+            if (new_text[new_text.Length - 3] != '.') new_text += ".00";
+            try
+            {
+                this.tabList[index].balance_label.Text = new_text + " " + RevCurrencys["" + this.tabList[index].Currency_ComboBox.SelectedItem];
+            }
+            catch {
+                this.tabList[index].balance_label.Text = new_text + " eur";
+            }
+            this.tabList[index].balance_label.Left = (this.ClientSize.Width - this.tabList[index].balance_label.Width) / 2;
+            this.tabList[index].UpdateControlPositions();
+        }
+
+
         private void ConvertButton_Click(object sender, EventArgs e)
         {
             //Console.WriteLine(RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem]);
