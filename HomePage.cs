@@ -38,6 +38,7 @@ namespace ileapy
             set_balance(1000000000.1);
             this.FormClosing += HomePage_FormClosing;
             isLoggingOut = false;
+            this.username_display_label.Text += Cache.uname;
         }
         private void HomePage_FormClosing(object sender, FormClosingEventArgs e)
         {

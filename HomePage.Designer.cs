@@ -43,6 +43,7 @@ namespace ileapy
             this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.logout_button = new System.Windows.Forms.Button();
+            this.username_display_label = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
@@ -137,11 +138,22 @@ namespace ileapy
             this.logout_button.UseVisualStyleBackColor = true;
             this.logout_button.Click += new System.EventHandler(this.logout_button_Click);
             // 
+            // username_display_label
+            // 
+            this.username_display_label.AutoSize = true;
+            this.username_display_label.Font = new System.Drawing.Font("Arial", 15F);
+            this.username_display_label.Location = new System.Drawing.Point(12, 9);
+            this.username_display_label.Name = "username_display_label";
+            this.username_display_label.Size = new System.Drawing.Size(63, 23);
+            this.username_display_label.TabIndex = 4;
+            this.username_display_label.Text = "User: ";
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.username_display_label);
             this.Controls.Add(this.logout_button);
             this.Controls.Add(this.Currency_ComboBox);
             this.Controls.Add(this.balance_label);
@@ -171,6 +183,7 @@ namespace ileapy
         private ileapyDataSetTableAdapters.TransactionsTableAdapter transactionsTableAdapter;
         private ileapyDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
         private System.Windows.Forms.Button logout_button;
+        private System.Windows.Forms.Label username_display_label;
     }
 }
 
