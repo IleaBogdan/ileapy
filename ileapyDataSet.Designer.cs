@@ -2724,24 +2724,39 @@ SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)"
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM dbo.Users";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "INSERT INTO Users\r\n                         (Id, Uname, Hpass, Mail, Phone, BDay," +
-                " Address)\r\nVALUES        (@Id,@Uname,@Hpass,@Mail,@Phone,@BDay,@Address); \r\nSELE" +
-                "CT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)";
+            this._commandCollection[1].CommandText = "INSERT INTO Users\r\n                         (Uname, Hpass, Mail, Phone, BDay, Add" +
+                "ress)\r\nVALUES        (@Uname,@Hpass,@Mail,@Phone,@BDay,@Address);   ";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Uname", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Uname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Hpass", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Hpass", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Mail", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Mail", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Phone", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "Phone", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BDay", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "BDay", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Address", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "Address", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[2].Connection = this.Connection;
+            this._commandCollection[2].CommandText = "SELECT        COUNT(*) AS cnt\r\nFROM            Users\r\nWHERE        (Uname = @unam" +
+                "e) AND (Hpass = @hpass)";
+            this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@uname", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Uname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@hpass", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Hpass", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[3].Connection = this.Connection;
+            this._commandCollection[3].CommandText = @"SELECT        u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address, STRING_AGG(CONCAT_WS('|', c.CardNumber, c.Amount, c.ExpDate), ',') AS cards_details
+FROM            Users AS u LEFT OUTER JOIN
+                         Cards AS c ON u.Id = c.OwnerID
+WHERE        (u.Uname = @uname) AND (u.Hpass = @hpass)
+GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@uname", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Uname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@hpass", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Hpass", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2763,6 +2778,54 @@ SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)"
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
         public virtual ileapyDataSet.UsersDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
+            ileapyDataSet.UsersDataTable dataTable = new ileapyDataSet.UsersDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(ileapyDataSet.UsersDataTable dataTable, string uname, string hpass) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((uname == null)) {
+                throw new global::System.ArgumentNullException("uname");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(uname));
+            }
+            if ((hpass == null)) {
+                throw new global::System.ArgumentNullException("hpass");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(hpass));
+            }
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ileapyDataSet.UsersDataTable GetUserAndCardData(string uname, string hpass) {
+            this.Adapter.SelectCommand = this.CommandCollection[3];
+            if ((uname == null)) {
+                throw new global::System.ArgumentNullException("uname");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[0].Value = ((string)(uname));
+            }
+            if ((hpass == null)) {
+                throw new global::System.ArgumentNullException("hpass");
+            }
+            else {
+                this.Adapter.SelectCommand.Parameters[1].Value = ((string)(hpass));
+            }
             ileapyDataSet.UsersDataTable dataTable = new ileapyDataSet.UsersDataTable();
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -3004,44 +3067,43 @@ SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)"
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, false)]
-        public virtual int AddUser(int Id, string Uname, string Hpass, string Mail, string Phone, string BDay, string Address) {
+        public virtual int AddUser(string Uname, string Hpass, string Mail, string Phone, string BDay, string Address) {
             global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[1];
-            command.Parameters[0].Value = ((int)(Id));
             if ((Uname == null)) {
                 throw new global::System.ArgumentNullException("Uname");
             }
             else {
-                command.Parameters[1].Value = ((string)(Uname));
+                command.Parameters[0].Value = ((string)(Uname));
             }
             if ((Hpass == null)) {
                 throw new global::System.ArgumentNullException("Hpass");
             }
             else {
-                command.Parameters[2].Value = ((string)(Hpass));
+                command.Parameters[1].Value = ((string)(Hpass));
             }
             if ((Mail == null)) {
                 throw new global::System.ArgumentNullException("Mail");
             }
             else {
-                command.Parameters[3].Value = ((string)(Mail));
+                command.Parameters[2].Value = ((string)(Mail));
             }
             if ((Phone == null)) {
                 throw new global::System.ArgumentNullException("Phone");
             }
             else {
-                command.Parameters[4].Value = ((string)(Phone));
+                command.Parameters[3].Value = ((string)(Phone));
             }
             if ((BDay == null)) {
                 throw new global::System.ArgumentNullException("BDay");
             }
             else {
-                command.Parameters[5].Value = ((string)(BDay));
+                command.Parameters[4].Value = ((string)(BDay));
             }
             if ((Address == null)) {
-                command.Parameters[6].Value = global::System.DBNull.Value;
+                command.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                command.Parameters[6].Value = ((string)(Address));
+                command.Parameters[5].Value = ((string)(Address));
             }
             global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
             if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3058,6 +3120,46 @@ SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)"
                 }
             }
             return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual object CheckCredentials(string uname, string hpass) {
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            if ((uname == null)) {
+                throw new global::System.ArgumentNullException("uname");
+            }
+            else {
+                command.Parameters[0].Value = ((string)(uname));
+            }
+            if ((hpass == null)) {
+                throw new global::System.ArgumentNullException("hpass");
+            }
+            else {
+                command.Parameters[1].Value = ((string)(hpass));
+            }
+            global::System.Data.ConnectionState previousConnectionState = command.Connection.State;
+            if (((command.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                command.Connection.Open();
+            }
+            object returnValue;
+            try {
+                returnValue = command.ExecuteScalar();
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    command.Connection.Close();
+                }
+            }
+            if (((returnValue == null) 
+                        || (returnValue.GetType() == typeof(global::System.DBNull)))) {
+                return null;
+            }
+            else {
+                return ((object)(returnValue));
+            }
         }
     }
     

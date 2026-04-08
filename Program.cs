@@ -11,19 +11,39 @@ namespace ileapy
 {
     internal static class Program
     {
+        public static DataManager GlobalDataManager { get; private set; }
+        public static bool program_state = true;
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (!Cache.IsLogin())
+            GlobalDataManager = new DataManager();
+            while (program_state)
             {
-                // display login menu and stuff
-                Application.Run(new LoginPage());
-            }
+                if (!Cache.IsLogin())
+                {
+                    using (var loginPage = new LoginPage())
+                    {
+                        Application.Run(loginPage);
+                        if (!Cache.IsLogin())
+                        {
+                            // User closed login page without logging in
+                            return;
+                        }
+                    }
+                }
 
-                Application.Run(new HomePage());
+                if (Cache.IsLogin())
+                {
+                    Cache.init();
+                    using (var homePage = new HomePage())
+                    {
+                        Application.Run(homePage);
+                    }
+                }
+            }
         }
     }
 }

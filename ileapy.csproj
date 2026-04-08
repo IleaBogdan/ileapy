@@ -63,6 +63,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="CurrencyConverter.cs" />
     <Compile Include="ileapyDataSet.cs">
       <DependentUpon>ileapyDataSet.xsd</DependentUpon>
@@ -87,6 +88,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TabButtons.cs" />
     <EmbeddedResource Include="HomePage.resx">
       <DependentUpon>HomePage.cs</DependentUpon>
     </EmbeddedResource>
