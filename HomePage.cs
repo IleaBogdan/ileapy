@@ -43,23 +43,7 @@ namespace ileapy
         {
             if (!isLoggingOut)
             {
-                // User clicked X button - exit the entire application
-                DialogResult result = MessageBox.Show(
-                    "Are you sure you want to exit the application?",
-                    "Exit",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (result == DialogResult.Yes)
-                {
-                    Program.program_state = false;
-                    //Cache.logout();
-                    // Don't call this.Close() again - it's already closing
-                }
-                else
-                {
-                    e.Cancel = true; // Cancel the close event
-                }
+                Program.program_state = false;
             }
         }
 
