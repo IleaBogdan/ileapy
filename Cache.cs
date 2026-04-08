@@ -13,7 +13,6 @@ namespace ileapy
         public static string hpassword; // password hash
         public static bool IsLogin()
         {
-            return false;
             // check if the file named .login exists in the current context
             try
             {
@@ -25,14 +24,29 @@ namespace ileapy
                 if (data.Length<2)return false;
                 
                 // check uname:
-                if (data[0] != null)
+                if (data[0] == null || data[1]==null)
                 {
-
+                    return false;
                 }
-                else return false;
-                    return true;
+                if (data[0] == "" || data[1] == "")
+                {
+                    return false;
+                }
+                uname = data[0].Split(':')[1];
+                hpassword = data[1].Split(':')[1];
+                if(uname == null || hpassword == null) return false;
+                if(uname == "" || hpassword == "") return false;
+                var res=Program.GlobalDataManager.usersTableAdapter.CheckCredentials(uname, hpassword);
+                Console.WriteLine(res);
+                return true;
             }
             catch { return false; } // .login is not in the same folder as the exe or does not exist
+        }
+        public static void save_credentials(string username, string hashed_password)
+        {
+            uname = username;
+            hpassword = hashed_password;
+            File.WriteAllText(".login","uname:"+uname+"\nhpass:"+hpassword);
         }
     }
 }

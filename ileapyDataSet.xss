@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:Cards" ZOrder="5" X="93" Y="77" Height="191" Width="177" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
     <Shape ID="DesignTable:Transactions" ZOrder="4" X="514" Y="92" Height="191" Width="217" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
-    <Shape ID="DesignTable:Users" ZOrder="1" X="299" Y="313" Height="229" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="159" />
+    <Shape ID="DesignTable:Users" ZOrder="1" X="299" Y="313" Height="248" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="159" />
   </Shapes>
   <Connectors>
     <Connector ID="DesignRelation:Users_Cards" ZOrder="3" LineWidth="11">

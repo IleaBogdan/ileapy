@@ -34,10 +34,23 @@ namespace ileapy
             string username = this.uname_textBox.Text;
             string password = this.password_textBox.Text;
 
-            Console.WriteLine(username + ":" + password);
+            string hashed_password = hash(password);
+            //Console.WriteLine(username + ":" + password);
+            var res = Program.GlobalDataManager.usersTableAdapter.CheckCredentials(username,hashed_password);
+            //Console.WriteLine(res);
+            if (res != null && (res is int && (int)res > 0) || res is bool)
+            {
+                //System.Windows.Forms.MessageBox.Show("Login successful!");
+                Cache.save_credentials(username, hashed_password);
+                this.Close();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Login failed. Please try again.");
+            }
         }
 
-        public static string hash(string text)
+        public static string hash(string text) // password hashing (it is not true hashing but it is not plain text either)
         {
             byte[] bytes = Encoding.Unicode.GetBytes(text);
             SHA256Managed hashstring = new SHA256Managed();
@@ -57,7 +70,7 @@ namespace ileapy
             string phone = this.phone_textBox.Text;
             string mail=this.mail_textBox.Text;
             string address=this.address_textBox.Text;
-            string bday = this.bday_dateTimePicker.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            string bday = this.bday_dateTimePicker.Value.ToString("yyyy-MM-dd HH:mm:ss"); // convert datetime to string with date time format for db
             //Console.WriteLine(bday);
             if (null == bday || null == username || null == password || null == phone 
                 || null == mail || null == address
@@ -66,8 +79,19 @@ namespace ileapy
                 System.Windows.Forms.MessageBox.Show("Please enter all values to Sign Up!");
                 return;
             }
-            var res=usersTableAdapter.AddUser(username,hash(password),mail,phone,bday,address);
-            Console.WriteLine(res);
+            string hashed_password = hash(password);
+            var res=usersTableAdapter.AddUser(username,hashed_password,mail,phone,bday,address);
+            //Console.WriteLine(res);
+            if (res != null && (res is int && (int)res > 0) || res is bool)
+            {
+                //System.Windows.Forms.MessageBox.Show("Sign up successful!");
+                Cache.save_credentials(username, hashed_password);
+                this.Close(); 
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("Sign up failed. Please try again.");
+            }
         }
     }
 }
