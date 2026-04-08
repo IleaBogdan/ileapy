@@ -38,10 +38,11 @@ namespace ileapy
             this.cardsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cardsTableAdapter = new ileapy.ileapyDataSetTableAdapters.CardsTableAdapter();
             this.tableAdapterManager = new ileapy.ileapyDataSetTableAdapters.TableAdapterManager();
-            this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.transactionsTableAdapter = new ileapy.ileapyDataSetTableAdapters.TransactionsTableAdapter();
-            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersTableAdapter = new ileapy.ileapyDataSetTableAdapters.UsersTableAdapter();
+            this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.logout_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
@@ -108,29 +109,40 @@ namespace ileapy
             this.tableAdapterManager.UpdateOrder = ileapy.ileapyDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
             this.tableAdapterManager.UsersTableAdapter = this.usersTableAdapter;
             // 
+            // transactionsTableAdapter
+            // 
+            this.transactionsTableAdapter.ClearBeforeFill = true;
+            // 
+            // usersTableAdapter
+            // 
+            this.usersTableAdapter.ClearBeforeFill = true;
+            // 
             // transactionsBindingSource
             // 
             this.transactionsBindingSource.DataMember = "Transactions";
             this.transactionsBindingSource.DataSource = this.ileapyDataSet;
-            // 
-            // transactionsTableAdapter
-            // 
-            this.transactionsTableAdapter.ClearBeforeFill = true;
             // 
             // usersBindingSource
             // 
             this.usersBindingSource.DataMember = "Users";
             this.usersBindingSource.DataSource = this.ileapyDataSet;
             // 
-            // usersTableAdapter
+            // logout_button
             // 
-            this.usersTableAdapter.ClearBeforeFill = true;
+            this.logout_button.Location = new System.Drawing.Point(28, 411);
+            this.logout_button.Name = "logout_button";
+            this.logout_button.Size = new System.Drawing.Size(65, 48);
+            this.logout_button.TabIndex = 3;
+            this.logout_button.Text = "Log out";
+            this.logout_button.UseVisualStyleBackColor = true;
+            this.logout_button.Click += new System.EventHandler(this.logout_button_Click);
             // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.logout_button);
             this.Controls.Add(this.Currency_ComboBox);
             this.Controls.Add(this.balance_label);
             this.Controls.Add(this.Convert_Button);
@@ -158,6 +170,7 @@ namespace ileapy
         private ileapyDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private ileapyDataSetTableAdapters.TransactionsTableAdapter transactionsTableAdapter;
         private ileapyDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
+        private System.Windows.Forms.Button logout_button;
     }
 }
 

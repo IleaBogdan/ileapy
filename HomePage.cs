@@ -21,6 +21,7 @@ namespace ileapy
     {
         Dictionary<string, string> Currencys = new Dictionary<string, string>();
         Dictionary<string, string> RevCurrencys = new Dictionary<string, string>();
+        private bool isLoggingOut = false; 
         private string Selected_Currency;
         public HomePage()
         {
@@ -35,7 +36,33 @@ namespace ileapy
             this.Currency_ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
             this.Currency_ComboBox.DropDownStyle = ComboBoxStyle.DropDown;
             set_balance(1000000000.1);
+            this.FormClosing += HomePage_FormClosing;
+            isLoggingOut = false;
         }
+        private void HomePage_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!isLoggingOut)
+            {
+                // User clicked X button - exit the entire application
+                DialogResult result = MessageBox.Show(
+                    "Are you sure you want to exit the application?",
+                    "Exit",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.Yes)
+                {
+                    Program.program_state = false;
+                    //Cache.logout();
+                    // Don't call this.Close() again - it's already closing
+                }
+                else
+                {
+                    e.Cancel = true; // Cancel the close event
+                }
+            }
+        }
+
         private void InitCurrecnys()
         {
             string data = CurrencyConverter.LoadCurrencys();
@@ -96,6 +123,13 @@ namespace ileapy
                                             this.balance_label.Text.IndexOf(" ")
                                             )));
             Selected_Currency = to;
+        }
+
+        private void logout_button_Click(object sender, EventArgs e)
+        {
+            isLoggingOut = true;
+            Cache.logout();
+            this.Close();
         }
     }
 }

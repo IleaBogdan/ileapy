@@ -37,7 +37,7 @@ namespace ileapy
                 if(uname == null || hpassword == null) return false;
                 if(uname == "" || hpassword == "") return false;
                 var res=Program.GlobalDataManager.usersTableAdapter.CheckCredentials(uname, hpassword);
-                Console.WriteLine(res);
+                //Console.WriteLine(res);
                 return true;
             }
             catch { return false; } // .login is not in the same folder as the exe or does not exist
@@ -47,6 +47,10 @@ namespace ileapy
             uname = username;
             hpassword = hashed_password;
             File.WriteAllText(".login","uname:"+uname+"\nhpass:"+hpassword);
+        }
+        public static void logout()
+        {
+            File.WriteAllText(".login", "");
         }
     }
 }
