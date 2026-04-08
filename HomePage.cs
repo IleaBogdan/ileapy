@@ -1,4 +1,5 @@
 ﻿using ileapy;
+using ileapy.ileapyDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -6,11 +7,13 @@ using System.Data;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace ileapy
 {
@@ -23,6 +26,11 @@ namespace ileapy
         {
             InitializeComponent();
             InitCurrecnys();
+
+            this.usersTableAdapter = Program.GlobalDataManager.usersTableAdapter;
+            this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
+            this.cardsTableAdapter = Program.GlobalDataManager.cardsTableAdapter;
+
             this.Currency_ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             this.Currency_ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
             this.Currency_ComboBox.DropDownStyle = ComboBoxStyle.DropDown;
@@ -88,23 +96,6 @@ namespace ileapy
                                             this.balance_label.Text.IndexOf(" ")
                                             )));
             Selected_Currency = to;
-        }
-
-        private void cardsBindingNavigatorSaveItem_Click(object sender, EventArgs e)
-        {
-            this.Validate();
-            this.cardsBindingSource.EndEdit();
-            this.tableAdapterManager.UpdateAll(this.ileapyDataSet);
-        }
-
-        private void HomePage_Load(object sender, EventArgs e)
-        {
-            // TODO: This line of code loads data into the 'ileapyDataSet.Users' table. You can move, or remove it, as needed.
-            this.usersTableAdapter.Fill(this.ileapyDataSet.Users);
-            // TODO: This line of code loads data into the 'ileapyDataSet.Transactions' table. You can move, or remove it, as needed.
-            this.transactionsTableAdapter.Fill(this.ileapyDataSet.Transactions);
-            // TODO: This line of code loads data into the 'ileapyDataSet.Cards' table. You can move, or remove it, as needed.
-            this.cardsTableAdapter.Fill(this.ileapyDataSet.Cards);
         }
     }
 }

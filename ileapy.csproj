@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Cache.cs" />
+    <Compile Include="DataManager.cs" />
     <Compile Include="CurrencyConverter.cs" />
     <Compile Include="ileapyDataSet.cs">
       <DependentUpon>ileapyDataSet.xsd</DependentUpon>

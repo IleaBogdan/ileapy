@@ -136,7 +136,6 @@ namespace ileapy
             this.Controls.Add(this.Convert_Button);
             this.Name = "HomePage";
             this.Text = "Home Page";
-            this.Load += new System.EventHandler(this.HomePage_Load);
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).EndInit();
@@ -153,12 +152,12 @@ namespace ileapy
         private System.Windows.Forms.ComboBox Currency_ComboBox;
         private ileapyDataSet ileapyDataSet;
         private System.Windows.Forms.BindingSource cardsBindingSource;
+        private System.Windows.Forms.BindingSource transactionsBindingSource;
+        private System.Windows.Forms.BindingSource usersBindingSource;
         private ileapyDataSetTableAdapters.CardsTableAdapter cardsTableAdapter;
         private ileapyDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         private ileapyDataSetTableAdapters.TransactionsTableAdapter transactionsTableAdapter;
-        private System.Windows.Forms.BindingSource transactionsBindingSource;
         private ileapyDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
-        private System.Windows.Forms.BindingSource usersBindingSource;
     }
 }
 

@@ -11,19 +11,24 @@ namespace ileapy
 {
     internal static class Program
     {
+        public static DataManager GlobalDataManager { get; private set; }
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            GlobalDataManager = new DataManager();
+
             if (!Cache.IsLogin())
             {
                 // display login menu and stuff
                 Application.Run(new LoginPage());
             }
-
+            if (Cache.IsLogin())
+            {
                 Application.Run(new HomePage());
+            }
         }
     }
 }
