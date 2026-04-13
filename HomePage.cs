@@ -34,9 +34,10 @@ namespace ileapy
             this.cardsTabControl.Resize += cardsTabControl_Resize;
             for (int i = 0; i < Cache.card_list.Count; ++i)
             {
-                add_tab();
-                set_balance(Cache.card_list[i].Amount,i);
-                InitCurrecnys(i);
+                this.add_tab();
+                this.set_balance(Cache.card_list[i].Amount,i);
+                //CurrencyIniter.InitCurrecnys(ref this.Currencys, ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency,ref this.cardsTabControl);
+                CurrencyIniter.InitCurrecnys(i,ref this.Currencys,ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency);
             }
 
 
@@ -68,76 +69,7 @@ namespace ileapy
             {
                 tb.UpdateControlPositions();
             }
-        }
-
-        private void InitCurrecnys(int idx)
-        {
-            if (Currencys.Count==0) { // check to only init the Currencys once and not overload them with to much data
-                string data = CurrencyConverter.LoadCurrencys();
-                int i = 0;
-                while (true)
-                {
-                    try
-                    {
-                        string key = MyStrings.split_Quotation(data, ref i);
-                        string val = MyStrings.split_Quotation(data, ref i);
-                        if ("" == key) break;
-                        if ("" == val) continue;
-                        if (":" == val) continue;
-                        if (": " == val) continue;
-                        Currencys[key] = val;
-                        RevCurrencys[val] = key;
-                    }
-                    catch (Exception err)
-                    {
-                        if (err is ArgumentOutOfRangeException) break;
-                        Console.WriteLine(err.Message);
-                        Environment.Exit(-2); // The program '[20996] ileapy.exe' has exited with code 4294967294 (0xfffffffe).
-                    }
-                }
-            }
-            //this.tabList[idx].Currency_ComboBox.Items.Clear();
-            foreach (var e in Currencys)
-            {
-                //Console.WriteLine($"Key: {e.Key}, Value: {e.Value}");
-                this.tabList[idx].Currency_ComboBox.Items.Add(e.Value);
-            }
-            this.tabList[idx].Currency_ComboBox.SelectedIndex = this.tabList[idx].Currency_ComboBox.FindString("Euro");
-            Selected_Currency = "eur";
-        }
-        private void InitCurrecnys()
-        {
-            string data = CurrencyConverter.LoadCurrencys();
-            int i = 0;
-            while (true)
-            {
-                try
-                {
-                    string key = MyStrings.split_Quotation(data, ref i);
-                    string val = MyStrings.split_Quotation(data, ref i);
-                    if ("" == key) break;
-                    if ("" == val) continue;
-                    if (":" == val) continue;
-                    if (": " == val) continue;
-                    Currencys[key]=val;
-                    RevCurrencys[val]= key;
-                }
-                catch (Exception err)
-                {
-                    if (err is ArgumentOutOfRangeException) break;
-                    Console.WriteLine(err.Message);
-                    Environment.Exit(-2); // The program '[20996] ileapy.exe' has exited with code 4294967294 (0xfffffffe).
-                }
-            }
-            //this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.Items.Clear();
-            foreach (var e in Currencys)
-            {
-                //Console.WriteLine($"Key: {e.Key}, Value: {e.Value}");
-                this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.Items.Add(e.Value);
-            }
-            this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedIndex = this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.FindString("Euro");
-            Selected_Currency = "eur";
-        }
+        }   
         private void set_balance(double new_balance)
         {
             string new_text = Convert.ToDouble(String.Format("{0:0.00}", new_balance)).ToString();
@@ -166,12 +98,6 @@ namespace ileapy
 
         private void ConvertButton_Click(object sender, EventArgs e)
         {
-            //Console.WriteLine(RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem]);
-            //string from = Selected_Currency;
-            //if (!RevCurrencys.ContainsKey("" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem))
-            //{
-            //    return;
-            //}
             string from = "eur";
             string to = RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem];
             if (to==from)
