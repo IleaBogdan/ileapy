@@ -123,6 +123,17 @@ namespace ileapy
             set_balance(multiplier * Convert.ToDouble(Cache.card_list[this.cardsTabControl.SelectedIndex].Amount));
             Selected_Currency = to;
         }
+        public static bool complete;
+        private void AddMoneyButton_Click(Object sender, EventArgs e)
+        {
+            HomePage.complete = false;
+            var money = new AddPage(this.cardsTabControl.SelectedIndex);
+            money.ShowDialog(); // block any actions until this page closes
+            if (HomePage.complete) // check if the user actually updated the amount of money in on the card or nah
+            {
+                this.RefreshButton_Click(sender, e);
+            }
+        }
         private void RefreshButton_Click(Object sender, EventArgs e)
         {
             double amount=Cache.RefreshAmount(this.cardsTabControl.SelectedIndex);
@@ -140,6 +151,7 @@ namespace ileapy
             TabButtons tb = new TabButtons();
             tb.Convert_Button.Click += new System.EventHandler(this.ConvertButton_Click);
             tb.Refresh_Button.Click += new System.EventHandler(this.RefreshButton_Click);
+            tb.AddMoney_Button.Click += new System.EventHandler(this.AddMoneyButton_Click);
 
             this.tabList.Add(tb);
 
@@ -150,6 +162,7 @@ namespace ileapy
             myTabPage.Controls.Add(tb.Currency_ComboBox);
             myTabPage.Controls.Add(tb.Convert_Button);
             myTabPage.Controls.Add(tb.Refresh_Button);
+            myTabPage.Controls.Add(tb.AddMoney_Button);
 
             myTabPage.Location = new System.Drawing.Point(8, 22);
             myTabPage.Padding = new System.Windows.Forms.Padding(3);

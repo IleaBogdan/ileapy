@@ -195,5 +195,13 @@ namespace ileapy
             //Console.WriteLine(amount);
             return amount;
         }
+        public static void UpdateAmount(int idx,double amount)
+        {
+            var rez=Program.GlobalDataManager.cardsTableAdapter.UpdateAmount((decimal)amount, card_list[idx].CardNumber, card_list[idx].CVC, card_list[idx].ExpDate,user_id);
+            if (rez <= 0)
+            {
+                card_list[idx].Amount = amount;
+            }
+        }
     }
 }
