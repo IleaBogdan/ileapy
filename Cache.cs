@@ -152,6 +152,7 @@ namespace ileapy
         }
         public static void init()
         {
+            card_list.Clear();
             var res=Program.GlobalDataManager.usersTableAdapter.GetUserAndCardData(uname,hpassword);
             if (res.Rows.Count > 0)
             {
@@ -159,13 +160,11 @@ namespace ileapy
                 //Console.WriteLine(row["Id"]);
                 user_id = (int)row["Id"];
                 string cardsDetails = row["cards_details"]?.ToString();
-                //Console.WriteLine(cardsDetails);
                 //for (int i = 0; i < row.Table.Columns.Count; i++)
                 //{
                 //    Console.WriteLine($"{row.Table.Columns[i].ColumnName}: {row[i]}");
                 //}
-
-                //Console.WriteLine(cardsDetails);
+                
                 // Note: cards are splited with , from each other and the data of each card is splited with |
                 string[]cards=cardsDetails.Split(',');
                 if (cards == null) return;
@@ -182,7 +181,19 @@ namespace ileapy
         }
         public static void add_card()
         {
-            card_list.Add(new CardInfo());
+            var ci=new CardInfo();
+            card_list.Add(ci);
+            var res = Program.GlobalDataManager.cardsTableAdapter.AddNewCard(ci.CardNumber, ci.CVC, ci.ExpDate, user_id, (decimal)ci.Amount);
+            if (res <= 0)
+            {
+                throw new Exception("Failed to add card");
+            }
+        }
+        public static double RefreshAmount(int idx)
+        {
+            double amount = (double)Program.GlobalDataManager.cardsTableAdapter.RefrashCard(card_list[idx].CardNumber, card_list[idx].ExpDate, user_id);
+            //Console.WriteLine(amount);
+            return amount;
         }
     }
 }

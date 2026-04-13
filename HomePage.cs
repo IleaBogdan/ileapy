@@ -72,17 +72,12 @@ namespace ileapy
         }   
         private void set_balance(double new_balance)
         {
-            string new_text = Convert.ToDouble(String.Format("{0:0.00}", new_balance)).ToString();
-            if (new_text[new_text.Length - 2] == '.') new_text+="0";
-            if (new_text[new_text.Length - 3] != '.') new_text += ".00";
-            this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Text = new_text + " " + RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem];
-            this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Left = (this.ClientSize.Width - this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Width) / 2;
-            this.tabList[this.cardsTabControl.SelectedIndex].UpdateControlPositions();
+            set_balance(new_balance, this.cardsTabControl.SelectedIndex);
         }
         private void set_balance(double new_balance,int index)
         {
             string new_text = Convert.ToDouble(String.Format("{0:0.00}", new_balance)).ToString();
-            Console.WriteLine(new_text);
+            //Console.WriteLine(new_text);
             try
             {
                 if (new_text[new_text.Length - 2] == '.') new_text += "0";
@@ -128,7 +123,11 @@ namespace ileapy
             set_balance(multiplier * Convert.ToDouble(Cache.card_list[this.cardsTabControl.SelectedIndex].Amount));
             Selected_Currency = to;
         }
-
+        private void RefreshButton_Click(Object sender, EventArgs e)
+        {
+            double amount=Cache.RefreshAmount(this.cardsTabControl.SelectedIndex);
+            set_balance(amount);
+        }
         private void logout_button_Click(object sender, EventArgs e)
         {
             isLoggingOut = true;
@@ -140,6 +139,7 @@ namespace ileapy
         {
             TabButtons tb = new TabButtons();
             tb.Convert_Button.Click += new System.EventHandler(this.ConvertButton_Click);
+            tb.Refresh_Button.Click += new System.EventHandler(this.RefreshButton_Click);
 
             this.tabList.Add(tb);
 
@@ -149,6 +149,7 @@ namespace ileapy
             myTabPage.Controls.Add(tb.balance_label);
             myTabPage.Controls.Add(tb.Currency_ComboBox);
             myTabPage.Controls.Add(tb.Convert_Button);
+            myTabPage.Controls.Add(tb.Refresh_Button);
 
             myTabPage.Location = new System.Drawing.Point(8, 22);
             myTabPage.Padding = new System.Windows.Forms.Padding(3);
