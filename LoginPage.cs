@@ -34,7 +34,7 @@ namespace ileapy
             string username = this.uname_textBox.Text;
             string password = this.password_textBox.Text;
 
-            string hashed_password = hash(password);
+            string hashed_password = Program.hash(password);
             //Console.WriteLine(username + ":" + password);
             var res = Program.GlobalDataManager.usersTableAdapter.CheckCredentials(username,hashed_password);
             //Console.WriteLine(res);
@@ -48,19 +48,6 @@ namespace ileapy
             {
                 System.Windows.Forms.MessageBox.Show("Login failed. Please try again.");
             }
-        }
-
-        public static string hash(string text) // password hashing (it is not true hashing but it is not plain text either)
-        {
-            byte[] bytes = Encoding.Unicode.GetBytes(text);
-            SHA256Managed hashstring = new SHA256Managed();
-            byte[] hash = hashstring.ComputeHash(bytes);
-            string hashString = string.Empty;
-            foreach (byte x in hash)
-            {
-                hashString += String.Format("{0:x2}", x);
-            }
-            return hashString;
         }
 
         private void Signup_Button_Click(object sender, EventArgs e)
@@ -79,7 +66,7 @@ namespace ileapy
                 System.Windows.Forms.MessageBox.Show("Please enter all values to Sign Up!");
                 return;
             }
-            string hashed_password = hash(password);
+            string hashed_password = Program.hash(password);
             var res=usersTableAdapter.AddUser(username,hashed_password,mail,phone,bday,address);
             //Console.WriteLine(res);
             if (res != null && (res is int && (int)res > 0) || res is bool)

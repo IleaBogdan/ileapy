@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.IO;
 
 namespace ileapy
 {
@@ -44,6 +46,18 @@ namespace ileapy
                     }
                 }
             }
+        }
+        public static string hash(string text) // password hashing (it is not true hashing but it is not plain text either)
+        {
+            byte[] bytes = Encoding.Unicode.GetBytes(text);
+            SHA256Managed hashstring = new SHA256Managed();
+            byte[] hash = hashstring.ComputeHash(bytes);
+            string hashString = string.Empty;
+            foreach (byte x in hash)
+            {
+                hashString += String.Format("{0:x2}", x);
+            }
+            return hashString;
         }
     }
 }

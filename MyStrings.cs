@@ -16,5 +16,11 @@ namespace ileapy
             offset = q_end + 1;
             return q;
         }
+        public static string Reverse(string s)
+        {
+            char[] charArray = s.ToCharArray();
+            Array.Reverse(charArray);
+            return new string(charArray);
+        }
     }
 }

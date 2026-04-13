@@ -20,12 +20,16 @@ namespace ileapy
     internal class TabButtons
     {
         public System.Windows.Forms.Button Convert_Button;
+        public System.Windows.Forms.Button Refresh_Button;
+        public System.Windows.Forms.Button AddMoney_Button;
         public System.Windows.Forms.Label balance_label;
         public System.Windows.Forms.ComboBox Currency_ComboBox;
         private TabPage parentTabPage;
         public TabButtons()
         {
             this.Convert_Button = new System.Windows.Forms.Button();
+            this.Refresh_Button = new System.Windows.Forms.Button();
+            this.AddMoney_Button = new System.Windows.Forms.Button();
             this.balance_label = new System.Windows.Forms.Label();
             this.Currency_ComboBox = new System.Windows.Forms.ComboBox();
 
@@ -41,6 +45,20 @@ namespace ileapy
             this.Convert_Button.TabIndex = 0;
             this.Convert_Button.Text = "Convert";
             this.Convert_Button.UseVisualStyleBackColor = true;
+
+            // Refresh_Button
+            this.Refresh_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top
+                //| System.Windows.Forms.AnchorStyles.Bottom
+                )
+            | System.Windows.Forms.AnchorStyles.Left)
+                //| System.Windows.Forms.AnchorStyles.Right
+            )));
+            this.Refresh_Button.Location = new System.Drawing.Point(10, 10);
+            this.Refresh_Button.Name = "Refresh_Button";
+            this.Refresh_Button.Size = new System.Drawing.Size(60, 20);
+            this.Refresh_Button.TabIndex = 4;
+            this.Refresh_Button.Text = "Refrash";
+            this.Refresh_Button.UseVisualStyleBackColor = true;
 
             // balance_label
             this.balance_label.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -68,6 +86,20 @@ namespace ileapy
             this.Currency_ComboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             this.Currency_ComboBox.AutoCompleteSource = AutoCompleteSource.ListItems;
             this.Currency_ComboBox.DropDownStyle = ComboBoxStyle.DropDown;
+
+            // AddMoney_Button
+            this.AddMoney_Button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top
+                //| System.Windows.Forms.AnchorStyles.Bottom
+                )
+            // | System.Windows.Forms.AnchorStyles.Left
+            | System.Windows.Forms.AnchorStyles.Right
+            ))));
+            this.AddMoney_Button.Location = new System.Drawing.Point(10, 10);
+            this.AddMoney_Button.Name = "AddMoney_Button";
+            this.AddMoney_Button.Size = new System.Drawing.Size(60, 40);
+            this.AddMoney_Button.TabIndex = 4;
+            this.AddMoney_Button.Text = "Add Money";
+            this.AddMoney_Button.UseVisualStyleBackColor = true;
         }
         public void CenterControls(TabPage parentPage)
         {
@@ -102,6 +134,14 @@ namespace ileapy
             Convert_Button.Location = new System.Drawing.Point(
                 centerX - (Convert_Button.Width / 2),
                 buttonY
+            );
+
+            // Position Refresh button in top-left corner
+            Refresh_Button.Location = new System.Drawing.Point(10, 10);
+
+            AddMoney_Button.Location = new System.Drawing.Point(
+                tabWidth-AddMoney_Button.Width-10,
+                10
             );
         }
 
