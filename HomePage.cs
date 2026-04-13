@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -120,6 +121,7 @@ namespace ileapy
             {
                 throw new ArgumentException("multiplier calculation failed");
             }
+            Console.WriteLine(Convert.ToDouble(Cache.card_list[this.cardsTabControl.SelectedIndex].Amount));
             set_balance(multiplier * Convert.ToDouble(Cache.card_list[this.cardsTabControl.SelectedIndex].Amount));
             Selected_Currency = to;
         }
@@ -132,11 +134,21 @@ namespace ileapy
             if (HomePage.complete) // check if the user actually updated the amount of money in on the card or nah
             {
                 this.RefreshButton_Click(sender, e);
+                // this is not the good solution:
+                isLoggingOut = true;
+                this.Close();
+                // for context (for future me if I forget this):
+                // if I add money to a new user when I try to convert them it doesn't work
+                // I get 0 as the balance. the solution as to reload the app.
+                // idk why I will check but for now this is as good as it is gonna get
             }
         }
         private void RefreshButton_Click(Object sender, EventArgs e)
         {
             double amount=Cache.RefreshAmount(this.cardsTabControl.SelectedIndex);
+            int index = this.cardsTabControl.SelectedIndex;
+            tabList[index].Currency_ComboBox.SelectedIndex = tabList[index].Currency_ComboBox.FindString("Euro");
+            Selected_Currency = "eur";
             set_balance(amount);
         }
         private void logout_button_Click(object sender, EventArgs e)
