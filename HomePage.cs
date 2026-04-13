@@ -82,8 +82,23 @@ namespace ileapy
         private void set_balance(double new_balance,int index)
         {
             string new_text = Convert.ToDouble(String.Format("{0:0.00}", new_balance)).ToString();
-            if (new_text[new_text.Length - 2] == '.') new_text += "0";
-            if (new_text[new_text.Length - 3] != '.') new_text += ".00";
+            Console.WriteLine(new_text);
+            try
+            {
+                if (new_text[new_text.Length - 2] == '.') new_text += "0";
+                if (new_text[new_text.Length - 3] != '.') new_text += ".00";
+            }
+            catch(Exception E)
+            {
+                if(E.Message== "Index was outside the bounds of the array.")
+                {
+                    new_text += ".00";
+                }
+                else
+                {
+                    throw E;
+                }
+            }
             try
             {
                 this.tabList[index].balance_label.Text = new_text + " " + RevCurrencys["" + this.tabList[index].Currency_ComboBox.SelectedItem];
@@ -145,6 +160,16 @@ namespace ileapy
 
             // Center the controls in tab
             tb.CenterControls(myTabPage);
+        }
+
+        private void new_card_button_Click(object sender, EventArgs e)
+        {
+            this.add_tab();
+            Cache.add_card();
+            int i=Cache.card_list.Count-1;
+            this.set_balance(Cache.card_list[i].Amount, i);
+            //CurrencyIniter.InitCurrecnys(ref this.Currencys, ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency,ref this.cardsTabControl);
+            CurrencyIniter.InitCurrecnys(i, ref this.Currencys, ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency);
         }
     }
 }

@@ -2749,10 +2749,10 @@ SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)"
             this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@hpass", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Hpass", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = @"SELECT        u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address, STRING_AGG(CONCAT_WS('|', c.CardNumber, c.Amount, c.ExpDate), ',') AS cards_details
-FROM            Users AS u LEFT OUTER JOIN
-                         Cards AS c ON u.Id = c.OwnerID
-WHERE        (u.Uname = @uname) AND (u.Hpass = @hpass)
+            this._commandCollection[3].CommandText = @"SELECT u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address, STRING_AGG(CONCAT_WS('|', c.CardNumber, c.Amount, c.ExpDate, c.CVC), ',') AS cards_details
+FROM     Users AS u LEFT OUTER JOIN
+                  Cards AS c ON u.Id = c.OwnerID
+WHERE  (u.Uname = @uname) AND (u.Hpass = @hpass)
 GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@uname", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Uname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
