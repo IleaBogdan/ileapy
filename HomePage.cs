@@ -36,9 +36,9 @@ namespace ileapy
             {
                 add_tab();
                 set_balance(Cache.card_list[i].Amount,i);
+                InitCurrecnys(i);
             }
 
-            InitCurrecnys();
 
             this.usersTableAdapter = Program.GlobalDataManager.usersTableAdapter;
             this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
@@ -70,6 +70,41 @@ namespace ileapy
             }
         }
 
+        private void InitCurrecnys(int idx)
+        {
+            if (Currencys.Count==0) { // check to only init the Currencys once and not overload them with to much data
+                string data = CurrencyConverter.LoadCurrencys();
+                int i = 0;
+                while (true)
+                {
+                    try
+                    {
+                        string key = MyStrings.split_Quotation(data, ref i);
+                        string val = MyStrings.split_Quotation(data, ref i);
+                        if ("" == key) break;
+                        if ("" == val) continue;
+                        if (":" == val) continue;
+                        if (": " == val) continue;
+                        Currencys[key] = val;
+                        RevCurrencys[val] = key;
+                    }
+                    catch (Exception err)
+                    {
+                        if (err is ArgumentOutOfRangeException) break;
+                        Console.WriteLine(err.Message);
+                        Environment.Exit(-2); // The program '[20996] ileapy.exe' has exited with code 4294967294 (0xfffffffe).
+                    }
+                }
+            }
+            //this.tabList[idx].Currency_ComboBox.Items.Clear();
+            foreach (var e in Currencys)
+            {
+                //Console.WriteLine($"Key: {e.Key}, Value: {e.Value}");
+                this.tabList[idx].Currency_ComboBox.Items.Add(e.Value);
+            }
+            this.tabList[idx].Currency_ComboBox.SelectedIndex = this.tabList[idx].Currency_ComboBox.FindString("Euro");
+            Selected_Currency = "eur";
+        }
         private void InitCurrecnys()
         {
             string data = CurrencyConverter.LoadCurrencys();
@@ -132,21 +167,24 @@ namespace ileapy
         private void ConvertButton_Click(object sender, EventArgs e)
         {
             //Console.WriteLine(RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem]);
-            string from = Selected_Currency;
-            if (!RevCurrencys.ContainsKey("" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem))
+            //string from = Selected_Currency;
+            //if (!RevCurrencys.ContainsKey("" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem))
+            //{
+            //    return;
+            //}
+            string from = "eur";
+            string to = RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem];
+            if (to==from)
             {
+                set_balance(Cache.card_list[this.cardsTabControl.SelectedIndex].Amount);
                 return;
             }
-            string to = RevCurrencys["" + this.tabList[this.cardsTabControl.SelectedIndex].Currency_ComboBox.SelectedItem];
             double multiplier = CurrencyConverter.CoinDiff(from, to);
             if (multiplier < 0)
             {
                 throw new ArgumentException("multiplier calculation failed");
             }
-            set_balance(multiplier * Convert.ToDouble(this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Text.Substring(
-                                            0,
-                                            this.tabList[this.cardsTabControl.SelectedIndex].balance_label.Text.IndexOf(" ")
-                                            )));
+            set_balance(multiplier * Convert.ToDouble(Cache.card_list[this.cardsTabControl.SelectedIndex].Amount));
             Selected_Currency = to;
         }
 
