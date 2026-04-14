@@ -71,6 +71,13 @@
     <Compile Include="AddPage.Designer.cs">
       <DependentUpon>AddPage.cs</DependentUpon>
     </Compile>
+    <Compile Include="Pair.cs" />
+    <Compile Include="TransactionMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TransactionMenu.Designer.cs">
+      <DependentUpon>TransactionMenu.cs</DependentUpon>
+    </Compile>
     <Compile Include="ileapyDataSet.cs">
       <DependentUpon>ileapyDataSet.xsd</DependentUpon>
     </Compile>
@@ -113,6 +120,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="TransactionMenu.resx">
+      <DependentUpon>TransactionMenu.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="ileapyDataSet.xsc">
       <DependentUpon>ileapyDataSet.xsd</DependentUpon>
     </None>

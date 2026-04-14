@@ -309,6 +309,15 @@ GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address</CommandText
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
+              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="dbo.Users" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy1" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetIdsAndUnames" GeneratorSourceName="FillBy1" GetMethodModifier="Public" GetMethodName="GetIdsAndUnames" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetIdsAndUnames" UserSourceName="FillBy1">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT        Id, Uname
+FROM            Users</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
             </Sources>
           </TableAdapter>
         </Tables>
@@ -421,8 +430,8 @@ GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address</CommandText
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Users_Cards" msdata:parent="Users" msdata:child="Cards" msdata:parentkey="Id" msdata:childkey="OwnerID" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Cards" msprop:Generator_RelationVarName="relationUsers_Cards" msprop:Generator_ChildPropName="GetCardsRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Cards" />
-      <msdata:Relationship name="Users_Transactions" msdata:parent="Users" msdata:child="Transactions" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Transactions" msprop:Generator_RelationVarName="relationUsers_Transactions" msprop:Generator_ChildPropName="GetTransactionsRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Transactions" />
+      <msdata:Relationship name="Users_Cards" msdata:parent="Users" msdata:child="Cards" msdata:parentkey="Id" msdata:childkey="OwnerID" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Cards" msprop:Generator_RelationVarName="relationUsers_Cards" msprop:Generator_ChildPropName="GetCardsRows" msprop:Generator_UserRelationName="Users_Cards" msprop:Generator_ParentPropName="UsersRow" />
+      <msdata:Relationship name="Users_Transactions" msdata:parent="Users" msdata:child="Transactions" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Transactions" msprop:Generator_RelationVarName="relationUsers_Transactions" msprop:Generator_ChildPropName="GetTransactionsRows" msprop:Generator_UserRelationName="Users_Transactions" msprop:Generator_ParentPropName="UsersRow" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

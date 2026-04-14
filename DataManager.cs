@@ -1,14 +1,16 @@
 ﻿using ileapy.ileapyDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ileapy.Cache;
 
 namespace ileapy
 {
-    internal class DataManager
+    public class DataManager
     {
         private ileapyDataSet ileapyDataSet;
         private System.Windows.Forms.BindingSource cardsBindingSource;
@@ -60,6 +62,48 @@ namespace ileapy
             this.usersTableAdapter.Connection.Open();
             this.cardsTableAdapter.Connection.Open();
             this.transactionsTableAdapter.Connection.Open();
+        }
+        public static void add_card()
+        {
+            var ci = new CardInfo();
+            var res = Program.GlobalDataManager.cardsTableAdapter.AddNewCard(ci.CardNumber, ci.CVC, ci.ExpDate, Cache.user_id, (decimal)ci.Amount);
+            if (res <= 0)
+            {
+                throw new Exception("Failed to add card");
+            }
+            card_list.Add(ci);
+        }
+        public static double RefreshAmount(int idx)
+        {
+            double amount = (double)Program.GlobalDataManager.cardsTableAdapter.RefrashCard(Cache.card_list[idx].CardNumber, Cache.card_list[idx].ExpDate, user_id);
+            Cache.card_list[idx].Amount = amount;
+            //Console.WriteLine(amount);
+            return amount;
+        }
+        public static void UpdateAmount(int idx, double amount)
+        {
+            var rez = Program.GlobalDataManager.cardsTableAdapter.UpdateAmount((decimal)amount, Cache.card_list[idx].CardNumber, Cache.card_list[idx].CVC, Cache.card_list[idx].ExpDate, Cache.user_id);
+            if (rez <= 0)
+            {
+                Cache.card_list[idx].Amount = amount;
+            }
+        }
+        public static void GetAllUsers(ref List<Pair<int, string>> ids_and_unames)
+        {
+            ids_and_unames.Clear();
+            ileapyDataSet.UsersDataTable dataTable =new ileapyDataSet.UsersDataTable();
+            try
+            {
+                Program.GlobalDataManager.usersTableAdapter.GetIdsAndUnames(ref dataTable);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            for(int i = 0; i < dataTable.Count; ++i)
+            {
+                ids_and_unames.Add(new Pair<int, string>(dataTable[i].Id, dataTable[i].Uname));
+            }
         }
 
         public BindingSource CardsBindingSource => cardsBindingSource;
