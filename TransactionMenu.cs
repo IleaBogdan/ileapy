@@ -13,6 +13,7 @@ namespace ileapy
     public partial class TransactionMenu : Form
     {
         private List<Pair<int,string>>ids_and_unames=new List<Pair<int,string>>();
+        private Dictionary<string,int>map=new Dictionary<string,int>();
         public TransactionMenu()
         {
             this.FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -64,7 +65,7 @@ namespace ileapy
                     System.Windows.Forms.MessageBox.Show("You don't have enough money!");
                     return;
                 }
-                this.transaction_progressBar.Value += 25;
+                this.transaction_progressBar.Value += 34;
                 this.Controls.Remove(this.max_amount_label);
                 this.Controls.Remove(this.transfer_amount_label);
                 this.Controls.Remove(this.transfer_sum_textBox);
@@ -75,12 +76,23 @@ namespace ileapy
                 this.Controls.Add(this.next_button2);
                 this.Controls.Add(this.to_who_label);
                 this.Controls.Add(this.user_select_comboBox);
+                this.Controls.Add(this.select_to_card_label_label);
+                this.Controls.Add(this.select_to_card_comboBox);
                 // pupulate the the textbox with data
                 DataManager.GetAllUsers(ref this.ids_and_unames);
-                //for(int i = 0; i < this.ids_and_unames.Count; ++i)
-                //{
-                //    Console.WriteLine(this.ids_and_unames[i].First.ToString() + " " + this.ids_and_unames[i].Second);
-                //}
+                this.user_select_comboBox.Items.Clear();
+                for (int i = 0; i < this.ids_and_unames.Count; ++i)
+                {
+                    //Console.WriteLine(this.ids_and_unames[i].First.ToString() + " " + this.ids_and_unames[i].Second);
+                    if (this.ids_and_unames[i].First != Cache.user_id)
+                    {
+                        this.user_select_comboBox.Items.Add(this.ids_and_unames[i].Second);
+                    }
+                    else
+                    {
+                        this.user_select_comboBox.Items.Add(this.ids_and_unames[i].Second+" (You)");
+                    }
+                }
             }
             else
             {
@@ -91,6 +103,17 @@ namespace ileapy
         private void user_select_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             Console.WriteLine(this.user_select_comboBox.SelectedIndex);
+            this.select_to_card_comboBox.Items.Clear();
+            var cards=DataManager.QueryCardNumbers(this.ids_and_unames[this.user_select_comboBox.SelectedIndex].First);
+            int i = 1;
+            map.Clear();
+            foreach (var card in cards.First)
+            {
+                this.select_to_card_comboBox.Items.Add("Card "+i.ToString()+": "+MyStrings.BlurCard((string)card));
+                map[(string)card] = cards.Second[i - 1];
+                ++i;
+            }
+            this.select_to_card_comboBox.SelectedIndex = 0;
         }
         private void next_button2_Click(object sender, EventArgs e)
         {

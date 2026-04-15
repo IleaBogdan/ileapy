@@ -29,6 +29,7 @@ namespace ileapy
         private void InitializeComponents()
         {
             this.ileapyDataSet = new ileapyDataSet();
+            this.ileapyDataSet.EnforceConstraints = false;
 
             this.cardsTableAdapter = new ileapyDataSetTableAdapters.CardsTableAdapter();
             this.transactionsTableAdapter = new ileapyDataSetTableAdapters.TransactionsTableAdapter();
@@ -104,6 +105,35 @@ namespace ileapy
             {
                 ids_and_unames.Add(new Pair<int, string>(dataTable[i].Id, dataTable[i].Uname));
             }
+        }
+        public static Pair<List<string>,List<int>> QueryCardNumbers(int index)
+        {
+            ileapyDataSet.CardsDataTable data=new ileapyDataSet.CardsDataTable();
+            try
+            {
+                Program.GlobalDataManager.cardsTableAdapter.GetCardsVIAId(index, ref data);
+            }
+            catch { } // empty catch because some random error that is thrown for no reason
+            //Console.WriteLine("chestie: "+data.Rows.Count);
+            var row = data.Rows[0];
+            string cardsDetails = row["cards_details"]?.ToString();
+            string[] cards = cardsDetails.Split(',');
+            var card_list = new Pair<List<string>,List<int>>();
+            card_list.First = new List<string>();
+            card_list.Second = new List<int>();
+            if (cards == null) return new Pair<List<string>, List<int>>();
+            for (int i = 0; i < cards.Length; ++i)
+            {
+                string[] card = cards[i].Split('|');
+                if (card == null) continue;
+                if (card.Length != 2) continue;
+                string c = card[0];
+                //Console.WriteLine(c);
+                card_list.First.Add(c);
+                card_list.Second.Add(Int32.Parse(card[1]));
+            }
+
+            return card_list;
         }
 
         public BindingSource CardsBindingSource => cardsBindingSource;

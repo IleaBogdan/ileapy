@@ -31,5 +31,10 @@ namespace ileapy
             }
             return ss;
         }
+        public static string BlurCard(string s)
+        {
+            if (s.Length != 16) throw new Exception("Invalide card");
+            return "********" + s.Substring(16 - 4);
+        }
     }
 }
