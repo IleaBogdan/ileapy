@@ -1946,11 +1946,10 @@ namespace ileapy.ileapyDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Amount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Amount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Cards] ([Id], [CardNumber], [CVC], [ExpDate], [OwnerID], [Amou" +
-                "nt]) VALUES (@Id, @CardNumber, @CVC, @ExpDate, @OwnerID, @Amount);\r\nSELECT Id, C" +
-                "ardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO [dbo].[Cards] ([CardNumber], [CVC], [ExpDate], [OwnerID], [Amount]) V" +
+                "ALUES (@CardNumber, @CVC, @ExpDate, @OwnerID, @Amount);\r\nSELECT Id, CardNumber, " +
+                "CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CardNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CardNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CVC", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CVC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ExpDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1958,10 +1957,9 @@ namespace ileapy.ileapyDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Amount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Amount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Cards] SET [Id] = @Id, [CardNumber] = @CardNumber, [CVC] = @CVC, [ExpDate] = @ExpDate, [OwnerID] = @OwnerID, [Amount] = @Amount WHERE (([Id] = @Original_Id) AND ([CardNumber] = @Original_CardNumber) AND ([CVC] = @Original_CVC) AND ([ExpDate] = @Original_ExpDate) AND ([OwnerID] = @Original_OwnerID) AND ([Amount] = @Original_Amount));
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Cards] SET [CardNumber] = @CardNumber, [CVC] = @CVC, [ExpDate] = @ExpDate, [OwnerID] = @OwnerID, [Amount] = @Amount WHERE (([Id] = @Original_Id) AND ([CardNumber] = @Original_CardNumber) AND ([CVC] = @Original_CVC) AND ([ExpDate] = @Original_ExpDate) AND ([OwnerID] = @Original_OwnerID) AND ([Amount] = @Original_Amount));
 SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CardNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CardNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CVC", global::System.Data.SqlDbType.NChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CVC", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ExpDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1973,6 +1971,7 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ExpDate", global::System.Data.SqlDbType.Date, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Amount", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Amount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1985,7 +1984,7 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[5];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM dbo.Cards";
@@ -2002,23 +2001,32 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Amount", global::System.Data.SqlDbType.Decimal, 9, global::System.Data.ParameterDirection.Input, 18, 2, "Amount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[2].Connection = this.Connection;
-            this._commandCollection[2].CommandText = "SELECT        Amount\r\nFROM            Cards\r\nWHERE        (CardNumber = @cardnr) " +
-                "AND (ExpDate = @expdate) AND (OwnerID = @oid)";
+            this._commandCollection[2].CommandText = @"SELECT u.Id, u.Uname, STRING_AGG(CONCAT_WS('|', c.CardNumber, c.Id), ',') AS cards_details
+FROM     Users AS u LEFT OUTER JOIN
+                  Cards AS c ON u.Id = c.OwnerID
+WHERE  (u.Id = @Id)
+GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address";
             this._commandCollection[2].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cardnr", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "CardNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@expdate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@oid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[2].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[3].Connection = this.Connection;
-            this._commandCollection[3].CommandText = "UPDATE       Cards\r\nSET                Amount = @Amount\r\nWHERE        (CardNumber" +
+            this._commandCollection[3].CommandText = "SELECT        Amount\r\nFROM            Cards\r\nWHERE        (CardNumber = @cardnr) " +
+                "AND (ExpDate = @expdate) AND (OwnerID = @oid)";
+            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@cardnr", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "CardNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@expdate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@oid", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "UPDATE       Cards\r\nSET                Amount = @Amount\r\nWHERE        (CardNumber" +
                 " = @Original_CardNumber) AND (CVC = @Original_CVC) AND (ExpDate = @Original_ExpD" +
                 "ate) AND (OwnerID = @Original_OwnerID); ";
-            this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Amount", global::System.Data.SqlDbType.Decimal, 9, global::System.Data.ParameterDirection.Input, 18, 2, "Amount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CardNumber", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "CardNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CVC", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "CVC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ExpDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Amount", global::System.Data.SqlDbType.Decimal, 9, global::System.Data.ParameterDirection.Input, 18, 2, "Amount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CardNumber", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "CardNumber", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CVC", global::System.Data.SqlDbType.NChar, 10, global::System.Data.ParameterDirection.Input, 0, 0, "CVC", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ExpDate", global::System.Data.SqlDbType.Date, 3, global::System.Data.ParameterDirection.Input, 0, 0, "ExpDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._commandCollection[4].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OwnerID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "OwnerID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2041,6 +2049,32 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         public virtual ileapyDataSet.CardsDataTable GetData() {
             this.Adapter.SelectCommand = this.CommandCollection[0];
             ileapyDataSet.CardsDataTable dataTable = new ileapyDataSet.CardsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy(ileapyDataSet.CardsDataTable dataTable, int Id) {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(Id));
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ileapyDataSet.CardsDataTable GetCardsVIAId(int Id,ref ileapyDataSet.CardsDataTable dataTable)
+        {
+            this.Adapter.SelectCommand = this.CommandCollection[2];
+            this.Adapter.SelectCommand.Parameters[0].Value = ((int)(Id));
             this.Adapter.Fill(dataTable);
             return dataTable;
         }
@@ -2115,23 +2149,22 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(int Id, string CardNumber, string CVC, System.DateTime ExpDate, int OwnerID, decimal Amount) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((int)(Id));
+        public virtual int Insert(string CardNumber, string CVC, System.DateTime ExpDate, int OwnerID, decimal Amount) {
             if ((CardNumber == null)) {
                 throw new global::System.ArgumentNullException("CardNumber");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(CardNumber));
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(CardNumber));
             }
             if ((CVC == null)) {
                 throw new global::System.ArgumentNullException("CVC");
             }
             else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(CVC));
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(CVC));
             }
-            this.Adapter.InsertCommand.Parameters[3].Value = ((System.DateTime)(ExpDate));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(OwnerID));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Amount));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((System.DateTime)(ExpDate));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(OwnerID));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Amount));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2152,39 +2185,39 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(int Id, string CardNumber, string CVC, System.DateTime ExpDate, int OwnerID, decimal Amount, int Original_Id, string Original_CardNumber, string Original_CVC, System.DateTime Original_ExpDate, int Original_OwnerID, decimal Original_Amount) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(Id));
+        public virtual int Update(string CardNumber, string CVC, System.DateTime ExpDate, int OwnerID, decimal Amount, int Original_Id, string Original_CardNumber, string Original_CVC, System.DateTime Original_ExpDate, int Original_OwnerID, decimal Original_Amount, int Id) {
             if ((CardNumber == null)) {
                 throw new global::System.ArgumentNullException("CardNumber");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(CardNumber));
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(CardNumber));
             }
             if ((CVC == null)) {
                 throw new global::System.ArgumentNullException("CVC");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(CVC));
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(CVC));
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((System.DateTime)(ExpDate));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(OwnerID));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Amount));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((System.DateTime)(ExpDate));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(OwnerID));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Amount));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
             if ((Original_CardNumber == null)) {
                 throw new global::System.ArgumentNullException("Original_CardNumber");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_CardNumber));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_CardNumber));
             }
             if ((Original_CVC == null)) {
                 throw new global::System.ArgumentNullException("Original_CVC");
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_CVC));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_CVC));
             }
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_ExpDate));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_OwnerID));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((decimal)(Original_Amount));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_ExpDate));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_OwnerID));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(Original_Amount));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -2206,7 +2239,7 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(string CardNumber, string CVC, System.DateTime ExpDate, int OwnerID, decimal Amount, int Original_Id, string Original_CardNumber, string Original_CVC, System.DateTime Original_ExpDate, int Original_OwnerID, decimal Original_Amount) {
-            return this.Update(Original_Id, CardNumber, CVC, ExpDate, OwnerID, Amount, Original_Id, Original_CardNumber, Original_CVC, Original_ExpDate, Original_OwnerID, Original_Amount);
+            return this.Update(CardNumber, CVC, ExpDate, OwnerID, Amount, Original_Id, Original_CardNumber, Original_CVC, Original_ExpDate, Original_OwnerID, Original_Amount, Original_Id);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2256,7 +2289,7 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         public virtual global::System.Nullable<decimal> RefrashCard(string cardnr, string expdate, int oid) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[2];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
             if ((cardnr == null)) {
                 throw new global::System.ArgumentNullException("cardnr");
             }
@@ -2298,7 +2331,7 @@ SELECT Id, CardNumber, CVC, ExpDate, OwnerID, Amount FROM Cards WHERE (Id = @Id)
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, false)]
         public virtual int UpdateAmount(decimal Amount, string Original_CardNumber, string Original_CVC, string Original_ExpDate, int Original_OwnerID) {
-            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[3];
+            global::System.Data.SqlClient.SqlCommand command = this.CommandCollection[4];
             command.Parameters[0].Value = ((decimal)(Amount));
             if ((Original_CardNumber == null)) {
                 throw new global::System.ArgumentNullException("Original_CardNumber");
@@ -2880,7 +2913,7 @@ SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM Users WHERE (Id = @Id)"
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[4];
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[5];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
             this._commandCollection[0].CommandText = "SELECT Id, Uname, Hpass, Mail, Phone, BDay, Address FROM dbo.Users";
@@ -2913,6 +2946,10 @@ GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address";
             this._commandCollection[3].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@uname", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Uname", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[3].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@hpass", global::System.Data.SqlDbType.NVarChar, 50, global::System.Data.ParameterDirection.Input, 0, 0, "Hpass", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._commandCollection[4] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[4].Connection = this.Connection;
+            this._commandCollection[4].CommandText = "SELECT        Id, Uname\r\nFROM            Users";
+            this._commandCollection[4].CommandType = global::System.Data.CommandType.Text;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2983,6 +3020,30 @@ GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address";
                 this.Adapter.SelectCommand.Parameters[1].Value = ((string)(hpass));
             }
             ileapyDataSet.UsersDataTable dataTable = new ileapyDataSet.UsersDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
+        public virtual int FillBy1(ileapyDataSet.UsersDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
+        public virtual ileapyDataSet.UsersDataTable GetIdsAndUnames(ref ileapyDataSet.UsersDataTable dataTable)
+        {
+            this.Adapter.SelectCommand = this.CommandCollection[4];
             this.Adapter.Fill(dataTable);
             return dataTable;
         }

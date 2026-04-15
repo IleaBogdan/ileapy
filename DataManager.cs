@@ -1,14 +1,16 @@
 ﻿using ileapy.ileapyDataSetTableAdapters;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ileapy.Cache;
 
 namespace ileapy
 {
-    internal class DataManager
+    public class DataManager
     {
         private ileapyDataSet ileapyDataSet;
         private System.Windows.Forms.BindingSource cardsBindingSource;
@@ -27,6 +29,7 @@ namespace ileapy
         private void InitializeComponents()
         {
             this.ileapyDataSet = new ileapyDataSet();
+            this.ileapyDataSet.EnforceConstraints = false;
 
             this.cardsTableAdapter = new ileapyDataSetTableAdapters.CardsTableAdapter();
             this.transactionsTableAdapter = new ileapyDataSetTableAdapters.TransactionsTableAdapter();
@@ -60,6 +63,77 @@ namespace ileapy
             this.usersTableAdapter.Connection.Open();
             this.cardsTableAdapter.Connection.Open();
             this.transactionsTableAdapter.Connection.Open();
+        }
+        public static void add_card()
+        {
+            var ci = new CardInfo();
+            var res = Program.GlobalDataManager.cardsTableAdapter.AddNewCard(ci.CardNumber, ci.CVC, ci.ExpDate, Cache.user_id, (decimal)ci.Amount);
+            if (res <= 0)
+            {
+                throw new Exception("Failed to add card");
+            }
+            card_list.Add(ci);
+        }
+        public static double RefreshAmount(int idx)
+        {
+            double amount = (double)Program.GlobalDataManager.cardsTableAdapter.RefrashCard(Cache.card_list[idx].CardNumber, Cache.card_list[idx].ExpDate, user_id);
+            Cache.card_list[idx].Amount = amount;
+            //Console.WriteLine(amount);
+            return amount;
+        }
+        public static void UpdateAmount(int idx, double amount)
+        {
+            var rez = Program.GlobalDataManager.cardsTableAdapter.UpdateAmount((decimal)amount, Cache.card_list[idx].CardNumber, Cache.card_list[idx].CVC, Cache.card_list[idx].ExpDate, Cache.user_id);
+            if (rez <= 0)
+            {
+                Cache.card_list[idx].Amount = amount;
+            }
+        }
+        public static void GetAllUsers(ref List<Pair<int, string>> ids_and_unames)
+        {
+            ids_and_unames.Clear();
+            ileapyDataSet.UsersDataTable dataTable =new ileapyDataSet.UsersDataTable();
+            try
+            {
+                Program.GlobalDataManager.usersTableAdapter.GetIdsAndUnames(ref dataTable);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            for(int i = 0; i < dataTable.Count; ++i)
+            {
+                ids_and_unames.Add(new Pair<int, string>(dataTable[i].Id, dataTable[i].Uname));
+            }
+        }
+        public static Pair<List<string>,List<int>> QueryCardNumbers(int index)
+        {
+            ileapyDataSet.CardsDataTable data=new ileapyDataSet.CardsDataTable();
+            try
+            {
+                Program.GlobalDataManager.cardsTableAdapter.GetCardsVIAId(index, ref data);
+            }
+            catch { } // empty catch because some random error that is thrown for no reason
+            //Console.WriteLine("chestie: "+data.Rows.Count);
+            var row = data.Rows[0];
+            string cardsDetails = row["cards_details"]?.ToString();
+            string[] cards = cardsDetails.Split(',');
+            var card_list = new Pair<List<string>,List<int>>();
+            card_list.First = new List<string>();
+            card_list.Second = new List<int>();
+            if (cards == null) return new Pair<List<string>, List<int>>();
+            for (int i = 0; i < cards.Length; ++i)
+            {
+                string[] card = cards[i].Split('|');
+                if (card == null) continue;
+                if (card.Length != 2) continue;
+                string c = card[0];
+                //Console.WriteLine(c);
+                card_list.First.Add(c);
+                card_list.Second.Add(Int32.Parse(card[1]));
+            }
+
+            return card_list;
         }
 
         public BindingSource CardsBindingSource => cardsBindingSource;

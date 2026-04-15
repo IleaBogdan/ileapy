@@ -95,6 +95,10 @@ namespace ileapy
                 cnr += checksum(cnr).ToString();
                 return cnr;
             }
+            public string HideCardNumber()
+            {
+                return "********" +this.CardNumber.Substring(16-4);
+            }
             public CardInfo() {
                 // the expDate should be 5 months after the date it was made.
                 this.ExpDate = MyStrings.Reverse(MyStrings.Reverse(DateTime.Now.ToString("M/d/yyyy")).Substring(MyStrings.Reverse(DateTime.Now.ToString("M/d/yyyy")).IndexOf("/"))) + (Int32.Parse(MyStrings.Reverse(MyStrings.Reverse(DateTime.Now.ToString("M/d/yyyy")).Substring(0, MyStrings.Reverse(DateTime.Now.ToString("M/d/yyyy")).IndexOf("/")))) + 5).ToString();
@@ -177,30 +181,6 @@ namespace ileapy
                     //Console.WriteLine(card[0] + " " + card[1] + " "+card[2]+" " + card[3]);
                     card_list.Add(c);
                 }
-            }
-        }
-        public static void add_card()
-        {
-            var ci=new CardInfo();
-            card_list.Add(ci);
-            var res = Program.GlobalDataManager.cardsTableAdapter.AddNewCard(ci.CardNumber, ci.CVC, ci.ExpDate, user_id, (decimal)ci.Amount);
-            if (res <= 0)
-            {
-                throw new Exception("Failed to add card");
-            }
-        }
-        public static double RefreshAmount(int idx)
-        {
-            double amount = (double)Program.GlobalDataManager.cardsTableAdapter.RefrashCard(card_list[idx].CardNumber, card_list[idx].ExpDate, user_id);
-            //Console.WriteLine(amount);
-            return amount;
-        }
-        public static void UpdateAmount(int idx,double amount)
-        {
-            var rez=Program.GlobalDataManager.cardsTableAdapter.UpdateAmount((decimal)amount, card_list[idx].CardNumber, card_list[idx].CVC, card_list[idx].ExpDate,user_id);
-            if (rez <= 0)
-            {
-                card_list[idx].Amount = amount;
             }
         }
     }
