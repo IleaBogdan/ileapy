@@ -102,22 +102,39 @@ namespace ileapy
 
         private void user_select_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Console.WriteLine(this.user_select_comboBox.SelectedIndex);
-            this.select_to_card_comboBox.Items.Clear();
-            var cards=DataManager.QueryCardNumbers(this.ids_and_unames[this.user_select_comboBox.SelectedIndex].First);
-            int i = 1;
-            map.Clear();
-            foreach (var card in cards.First)
+            try
             {
-                this.select_to_card_comboBox.Items.Add("Card "+i.ToString()+": "+MyStrings.BlurCard((string)card));
-                map[(string)card] = cards.Second[i - 1];
-                ++i;
+                Console.WriteLine(this.user_select_comboBox.SelectedIndex);
+                this.select_to_card_comboBox.Items.Clear();
+                var cards = DataManager.QueryCardNumbers(this.ids_and_unames[this.user_select_comboBox.SelectedIndex].First);
+                int i = 1;
+                map.Clear();
+                foreach (var card in cards.First)
+                {
+                    this.select_to_card_comboBox.Items.Add("Card " + i.ToString() + ": " + MyStrings.BlurCard((string)card));
+                    map[(string)card] = cards.Second[i - 1];
+                    ++i;
+                }
+                this.select_to_card_comboBox.SelectedIndex = 0;
             }
-            this.select_to_card_comboBox.SelectedIndex = 0;
+            catch
+            {
+                return;
+            }
         }
         private void next_button2_Click(object sender, EventArgs e)
         {
+            // I need to get the card id of the user it transfers from 
+            // also the card id of the user transfer to
+            // probably I can make a query that gets ids based on the users ids
 
+            // I then need to make a 2 querys to insert data in the transaction menu
+            // I need to set type=1 to be a from user 1 to user 2
+            // and set type=2 to be from user 2 to user 1
+            // I will not store negative values in the table
+            // type=3 is for messages
+            // I will probably use the same table for that.
+            // or maybe not. idk
         }
     }
 }

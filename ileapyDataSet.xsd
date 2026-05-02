@@ -2,9 +2,10 @@
 <xs:schema id="ileapyDataSet" targetNamespace="http://tempuri.org/ileapyDataSet.xsd" xmlns:mstns="http://tempuri.org/ileapyDataSet.xsd" xmlns="http://tempuri.org/ileapyDataSet.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop" attributeFormDefault="qualified" elementFormDefault="qualified">
   <xs:annotation>
     <xs:appinfo source="urn:schemas-microsoft-com:xml-msdatasource">
-      <DataSource DefaultConnectionIndex="0" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
+      <DataSource DefaultConnectionIndex="1" FunctionsComponentName="QueriesTableAdapter" Modifier="AutoLayout, AnsiClass, Class, Public" SchemaSerializationMode="IncludeSchema" xmlns="urn:schemas-microsoft-com:xml-msdatasource">
         <Connections>
           <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ileapyConnectionString" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ileapyConnectionString (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ileapy.Properties.Settings.GlobalReference.Default.ileapyConnectionString" Provider="System.Data.SqlClient" />
+          <Connection AppSettingsObjectName="Settings" AppSettingsPropertyName="ileapyConnectionString1" ConnectionStringObject="" IsAppSettingsProperty="true" Modifier="Assembly" Name="ileapyConnectionString1 (Settings)" ParameterPrefix="@" PropertyReference="ApplicationSettings.ileapy.Properties.Settings.GlobalReference.Default.ileapyConnectionString1" Provider="System.Data.SqlClient" />
         </Connections>
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="CardsTableAdapter" GeneratorDataComponentClassName="CardsTableAdapter" Name="Cards" UserDataComponentName="CardsTableAdapter">
@@ -103,7 +104,7 @@ GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address</CommandText
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="dbo.Cards" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="RefrashCard" Modifier="Public" Name="RefrashCard" QueryType="Scalar" ScalarCallRetval="System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="RefrashCard">
+              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="dbo.Cards" DbObjectType="Table" GenerateShortCommands="true" GeneratorSourceName="RefrashCard" Modifier="Public" Name="RefrashCard" QueryType="Scalar" ScalarCallRetval="System.Decimal, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy1" UserSourceName="RefrashCard">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>SELECT        Amount
@@ -117,7 +118,7 @@ WHERE        (CardNumber = @cardnr) AND (ExpDate = @expdate) AND (OwnerID = @oid
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
-              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateAmount" Modifier="Public" Name="UpdateAmount" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy3" UserSourceName="UpdateAmount">
+              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="UpdateAmount" Modifier="Public" Name="UpdateAmount" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy2" UserSourceName="UpdateAmount">
                 <UpdateCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
                     <CommandText>UPDATE       Cards
@@ -201,7 +202,24 @@ SELECT Id, ID_From, ID_To, Amount, Message, Date FROM Transactions WHERE (Id = @
               <Mapping SourceColumn="Message" DataSetColumn="Message" />
               <Mapping SourceColumn="Date" DataSetColumn="Date" />
             </Mappings>
-            <Sources />
+            <Sources>
+              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="" DbObjectType="Unknown" GenerateShortCommands="true" GeneratorSourceName="Insert_Transaction" Modifier="Public" Name="Insert_Transaction" QueryType="NoData" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBy" UserSourceName="Insert_Transaction">
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>INSERT INTO Transactions
+                         (ID_From, ID_To, Amount, Message, Date)
+VALUES        (@ID_From,@ID_To,@Amount,@Message,@Date); </CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="ID_From" ColumnName="ID_From" DataSourceName="[C:\WORK\PROIECTE_SCOALA\ILEAPY\ILEAPY.MDF].dbo.Transactions" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID_From" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ID_From" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="ID_To" ColumnName="ID_To" DataSourceName="[C:\WORK\PROIECTE_SCOALA\ILEAPY\ILEAPY.MDF].dbo.Transactions" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@ID_To" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="ID_To" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Amount" ColumnName="Amount" DataSourceName="[C:\WORK\PROIECTE_SCOALA\ILEAPY\ILEAPY.MDF].dbo.Transactions" DataTypeServer="decimal(18, 2)" DbType="Decimal" Direction="Input" ParameterName="@Amount" Precision="18" ProviderType="Decimal" Scale="2" Size="9" SourceColumn="Amount" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Message" ColumnName="Message" DataSourceName="[C:\WORK\PROIECTE_SCOALA\ILEAPY\ILEAPY.MDF].dbo.Transactions" DataTypeServer="nchar(10)" DbType="String" Direction="Input" ParameterName="@Message" Precision="0" ProviderType="NChar" Scale="0" Size="10" SourceColumn="Message" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Date" ColumnName="Date" DataSourceName="[C:\WORK\PROIECTE_SCOALA\ILEAPY\ILEAPY.MDF].dbo.Transactions" DataTypeServer="datetime" DbType="DateTime" Direction="Input" ParameterName="@Date" Precision="0" ProviderType="DateTime" Scale="0" Size="8" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+              </DbSource>
+            </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="UsersTableAdapter" GeneratorDataComponentClassName="UsersTableAdapter" Name="Users" UserDataComponentName="UsersTableAdapter">
             <MainSource>
@@ -310,10 +328,10 @@ WHERE        (Uname = @uname) AND (Hpass = @hpass)</CommandText>
               <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="dbo.Users" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetUserAndCardData" GeneratorSourceName="FillBy" GetMethodModifier="Public" GetMethodName="GetUserAndCardData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetUserAndCardData" UserSourceName="FillBy">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address, STRING_AGG(CONCAT_WS('|', c.CardNumber, c.Amount, c.ExpDate, c.CVC), ',') AS cards_details
-FROM     Users AS u LEFT OUTER JOIN
-                  Cards AS c ON u.Id = c.OwnerID
-WHERE  (u.Uname = @uname) AND (u.Hpass = @hpass)
+                    <CommandText>SELECT        u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address, STRING_AGG(CONCAT_WS('|', c.CardNumber, c.Amount, c.ExpDate, c.CVC, c.Id), ',') AS cards_details
+FROM            Users AS u LEFT OUTER JOIN
+                         Cards AS c ON u.Id = c.OwnerID
+WHERE        (u.Uname = @uname) AND (u.Hpass = @hpass)
 GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address</CommandText>
                     <Parameters>
                       <Parameter AllowDbNull="false" AutogeneratedName="uname" ColumnName="Uname" DataSourceName="[C:\WORK\PROIECTE_SCOALA\ILEAPY\ILEAPY.MDF].dbo.Users" DataTypeServer="nvarchar(50)" DbType="String" Direction="Input" ParameterName="@uname" Precision="0" ProviderType="NVarChar" Scale="0" Size="50" SourceColumn="Uname" SourceColumnNullMapping="false" SourceVersion="Current" />
@@ -332,6 +350,68 @@ FROM            Users</CommandText>
                 </SelectCommand>
               </DbSource>
             </Sources>
+          </TableAdapter>
+          <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MessagesTableAdapter" GeneratorDataComponentClassName="MessagesTableAdapter" Name="Messages" UserDataComponentName="MessagesTableAdapter">
+            <MainSource>
+              <DbSource ConnectionRef="ileapyConnectionString1 (Settings)" DbObjectName="dbo.Messages" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+                <DeleteCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>DELETE FROM [dbo].[Messages] WHERE (([Id] = @Original_Id) AND ([ID_From] = @Original_ID_From) AND ([ID_To] = @Original_ID_To) AND ([Message] = @Original_Message) AND ([Date] = @Original_Date))</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID_From" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_From" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID_To" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_To" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Message" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Message" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_Date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Original" />
+                    </Parameters>
+                  </DbCommand>
+                </DeleteCommand>
+                <InsertCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>INSERT INTO [dbo].[Messages] ([ID_From], [ID_To], [Message], [Date]) VALUES (@ID_From, @ID_To, @Message, @Date);
+SELECT Id, ID_From, ID_To, Message, Date FROM Messages WHERE (Id = SCOPE_IDENTITY())</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ID_From" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_From" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ID_To" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_To" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Message" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Message" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </InsertCommand>
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>SELECT Id, ID_From, ID_To, Message, Date FROM dbo.Messages</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+                <UpdateCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="false">
+                    <CommandText>UPDATE [dbo].[Messages] SET [ID_From] = @ID_From, [ID_To] = @ID_To, [Message] = @Message, [Date] = @Date WHERE (([Id] = @Original_Id) AND ([ID_From] = @Original_ID_From) AND ([ID_To] = @Original_ID_To) AND ([Message] = @Original_Message) AND ([Date] = @Original_Date));
+SELECT Id, ID_From, ID_To, Message, Date FROM Messages WHERE (Id = @Id)</CommandText>
+                    <Parameters>
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ID_From" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_From" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@ID_To" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_To" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Message" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Message" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Current" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_Id" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID_From" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_From" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="Int32" Direction="Input" ParameterName="@Original_ID_To" Precision="0" ProviderType="Int" Scale="0" Size="0" SourceColumn="ID_To" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="StringFixedLength" Direction="Input" ParameterName="@Original_Message" Precision="0" ProviderType="NChar" Scale="0" Size="0" SourceColumn="Message" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="" DataSourceName="" DbType="DateTime" Direction="Input" ParameterName="@Original_Date" Precision="0" ProviderType="DateTime" Scale="0" Size="0" SourceColumn="Date" SourceColumnNullMapping="false" SourceVersion="Original" />
+                      <Parameter AllowDbNull="false" AutogeneratedName="Id" ColumnName="Id" DataSourceName="" DataTypeServer="int" DbType="Int32" Direction="Input" ParameterName="@Id" Precision="0" ProviderType="Int" Scale="0" Size="4" SourceColumn="Id" SourceColumnNullMapping="false" SourceVersion="Current" />
+                    </Parameters>
+                  </DbCommand>
+                </UpdateCommand>
+              </DbSource>
+            </MainSource>
+            <Mappings>
+              <Mapping SourceColumn="Id" DataSetColumn="Id" />
+              <Mapping SourceColumn="ID_From" DataSetColumn="ID_From" />
+              <Mapping SourceColumn="ID_To" DataSetColumn="ID_To" />
+              <Mapping SourceColumn="Message" DataSetColumn="Message" />
+              <Mapping SourceColumn="Date" DataSetColumn="Date" />
+            </Mappings>
+            <Sources />
           </TableAdapter>
         </Tables>
         <Sources />
@@ -426,6 +506,23 @@ FROM            Users</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="Messages" msprop:Generator_RowEvHandlerName="MessagesRowChangeEventHandler" msprop:Generator_RowDeletedName="MessagesRowDeleted" msprop:Generator_RowDeletingName="MessagesRowDeleting" msprop:Generator_RowEvArgName="MessagesRowChangeEvent" msprop:Generator_TablePropName="Messages" msprop:Generator_RowChangedName="MessagesRowChanged" msprop:Generator_RowChangingName="MessagesRowChanging" msprop:Generator_TableClassName="MessagesDataTable" msprop:Generator_RowClassName="MessagesRow" msprop:Generator_TableVarName="tableMessages" msprop:Generator_UserTableName="Messages">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_ColumnVarNameInTable="columnId" msprop:Generator_UserColumnName="Id" type="xs:int" />
+              <xs:element name="ID_From" msprop:Generator_ColumnPropNameInRow="ID_From" msprop:Generator_ColumnPropNameInTable="ID_FromColumn" msprop:Generator_ColumnVarNameInTable="columnID_From" msprop:Generator_UserColumnName="ID_From" type="xs:int" />
+              <xs:element name="ID_To" msprop:Generator_ColumnPropNameInRow="ID_To" msprop:Generator_ColumnPropNameInTable="ID_ToColumn" msprop:Generator_ColumnVarNameInTable="columnID_To" msprop:Generator_UserColumnName="ID_To" type="xs:int" />
+              <xs:element name="Message" msprop:Generator_ColumnPropNameInRow="Message" msprop:Generator_ColumnPropNameInTable="MessageColumn" msprop:Generator_ColumnVarNameInTable="columnMessage" msprop:Generator_UserColumnName="Message">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="10" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element name="Date" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_ColumnVarNameInTable="columnDate" msprop:Generator_UserColumnName="Date" type="xs:dateTime" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
     <xs:unique name="Constraint1" msdata:PrimaryKey="true">
@@ -440,11 +537,16 @@ FROM            Users</CommandText>
       <xs:selector xpath=".//mstns:Users" />
       <xs:field xpath="mstns:Id" />
     </xs:unique>
+    <xs:unique name="Messages_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:Messages" />
+      <xs:field xpath="mstns:Id" />
+    </xs:unique>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Users_Cards" msdata:parent="Users" msdata:child="Cards" msdata:parentkey="Id" msdata:childkey="OwnerID" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Cards" msprop:Generator_RelationVarName="relationUsers_Cards" msprop:Generator_ChildPropName="GetCardsRows" msprop:Generator_UserRelationName="Users_Cards" msprop:Generator_ParentPropName="UsersRow" />
-      <msdata:Relationship name="Users_Transactions" msdata:parent="Users" msdata:child="Transactions" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Transactions" msprop:Generator_RelationVarName="relationUsers_Transactions" msprop:Generator_ChildPropName="GetTransactionsRows" msprop:Generator_UserRelationName="Users_Transactions" msprop:Generator_ParentPropName="UsersRow" />
+      <msdata:Relationship name="Users_Cards" msdata:parent="Users" msdata:child="Cards" msdata:parentkey="Id" msdata:childkey="OwnerID" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Cards" msprop:Generator_RelationVarName="relationUsers_Cards" msprop:Generator_ChildPropName="GetCardsRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Cards" />
+      <msdata:Relationship name="Users_Transactions" msdata:parent="Users" msdata:child="Transactions" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Transactions" msprop:Generator_RelationVarName="relationUsers_Transactions" msprop:Generator_ChildPropName="GetTransactionsRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Transactions" />
+      <msdata:Relationship name="Users_Messages" msdata:parent="Users" msdata:child="Messages" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Messages" msprop:Generator_RelationVarName="relationUsers_Messages" msprop:Generator_ChildPropName="GetMessagesRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Messages" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

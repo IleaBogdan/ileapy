@@ -113,6 +113,7 @@ namespace ileapy
         public static int user_id;
         public static string hpassword; // password hash
         public static List<CardInfo> card_list=new List<CardInfo>();
+        public static List<int> card_ids = new List<int>();
         public static bool IsLogin()
         {
             // check if the file named .login exists in the current context
@@ -157,6 +158,7 @@ namespace ileapy
         public static void init()
         {
             card_list.Clear();
+            card_ids.Clear();
             var res=Program.GlobalDataManager.usersTableAdapter.GetUserAndCardData(uname,hpassword);
             if (res.Rows.Count > 0)
             {
@@ -176,10 +178,11 @@ namespace ileapy
                 {
                     string[] card = cards[i].Split('|');
                     if (card==null) continue;
-                    if (card.Length != 4) continue;
+                    if (card.Length != 5) continue;
                     CardInfo c=new CardInfo(card[0], Convert.ToDouble(card[1]), card[2], card[3]);
                     //Console.WriteLine(card[0] + " " + card[1] + " "+card[2]+" " + card[3]);
                     card_list.Add(c);
+                    card_ids.Add(Convert.ToInt32(card[4]));
                 }
             }
         }
