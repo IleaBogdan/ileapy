@@ -22,5 +22,19 @@ namespace ileapy
             Array.Reverse(charArray);
             return new string(charArray);
         }
+        public static string Aligne(int s,int Mchifs)
+        {
+            string ss = s.ToString();
+            for (; 0!=  Mchifs - ss.Length;)
+            {
+                ss= " "+ss;
+            }
+            return ss;
+        }
+        public static string BlurCard(string s)
+        {
+            if (s.Length != 16) throw new Exception("Invalide card");
+            return "********" + s.Substring(16 - 4);
+        }
     }
 }

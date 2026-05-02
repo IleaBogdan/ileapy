@@ -35,8 +35,8 @@ namespace ileapy
 
             // we fetch for the money amount of this card and then we update
             // since in cache the amount mai not be acurate
-            amount+=Cache.RefreshAmount(this.idx);
-            Cache.UpdateAmount(this.idx,amount);
+            amount+=DataManager.RefreshAmount(this.idx);
+            DataManager.UpdateAmount(this.idx,amount);
             HomePage.complete= true;
             this.Close();
         }
