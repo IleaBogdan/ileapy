@@ -43,6 +43,7 @@ namespace ileapy
             this.username_display_label = new System.Windows.Forms.Label();
             this.cardsTabControl = new System.Windows.Forms.TabControl();
             this.new_card_button = new System.Windows.Forms.Button();
+            this.new_transaction_button = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
@@ -94,10 +95,9 @@ namespace ileapy
             this.logout_button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.logout_button.Location = new System.Drawing.Point(21, 550);
-            this.logout_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logout_button.Location = new System.Drawing.Point(16, 447);
             this.logout_button.Name = "logout_button";
-            this.logout_button.Size = new System.Drawing.Size(81, 59);
+            this.logout_button.Size = new System.Drawing.Size(61, 48);
             this.logout_button.TabIndex = 3;
             this.logout_button.Text = "Log out";
             this.logout_button.UseVisualStyleBackColor = true;
@@ -110,10 +110,9 @@ namespace ileapy
             | System.Windows.Forms.AnchorStyles.Right)));
             this.username_display_label.AutoSize = true;
             this.username_display_label.Font = new System.Drawing.Font("Arial", 15F);
-            this.username_display_label.Location = new System.Drawing.Point(16, 11);
-            this.username_display_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.username_display_label.Location = new System.Drawing.Point(12, 9);
             this.username_display_label.Name = "username_display_label";
-            this.username_display_label.Size = new System.Drawing.Size(79, 28);
+            this.username_display_label.Size = new System.Drawing.Size(63, 23);
             this.username_display_label.TabIndex = 4;
             this.username_display_label.Text = "User: ";
             // 
@@ -122,34 +121,45 @@ namespace ileapy
             this.cardsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cardsTabControl.Location = new System.Drawing.Point(133, 7);
-            this.cardsTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cardsTabControl.Location = new System.Drawing.Point(100, 6);
             this.cardsTabControl.Multiline = true;
             this.cardsTabControl.Name = "cardsTabControl";
             this.cardsTabControl.SelectedIndex = 0;
-            this.cardsTabControl.Size = new System.Drawing.Size(729, 288);
+            this.cardsTabControl.Size = new System.Drawing.Size(547, 234);
             this.cardsTabControl.TabIndex = 5;
             // 
             // new_card_button
             // 
-            this.new_card_button.Location = new System.Drawing.Point(21, 138);
+            this.new_card_button.Location = new System.Drawing.Point(16, 112);
+            this.new_card_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.new_card_button.Name = "new_card_button";
-            this.new_card_button.Size = new System.Drawing.Size(81, 46);
+            this.new_card_button.Size = new System.Drawing.Size(61, 37);
             this.new_card_button.TabIndex = 6;
             this.new_card_button.Text = "New Card";
             this.new_card_button.UseVisualStyleBackColor = true;
             this.new_card_button.Click += new System.EventHandler(this.new_card_button_Click);
             // 
+            // new_transaction_button
+            // 
+            this.new_transaction_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.new_transaction_button.Location = new System.Drawing.Point(688, 103);
+            this.new_transaction_button.Name = "new_transaction_button";
+            this.new_transaction_button.Size = new System.Drawing.Size(100, 54);
+            this.new_transaction_button.TabIndex = 7;
+            this.new_transaction_button.Text = "New Transaction";
+            this.new_transaction_button.UseVisualStyleBackColor = true;
+            this.new_transaction_button.Click += new System.EventHandler(this.new_transaction_button_Click);
+            // 
             // HomePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 624);
+            this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.new_transaction_button);
             this.Controls.Add(this.new_card_button);
             this.Controls.Add(this.cardsTabControl);
             this.Controls.Add(this.username_display_label);
             this.Controls.Add(this.logout_button);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "HomePage";
             this.Text = "Home Page";
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).EndInit();
@@ -175,6 +185,7 @@ namespace ileapy
         private System.Windows.Forms.Label username_display_label;
         private System.Windows.Forms.TabControl cardsTabControl;
         private System.Windows.Forms.Button new_card_button;
+        private System.Windows.Forms.Button new_transaction_button;
     }
 }
 

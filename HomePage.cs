@@ -134,22 +134,19 @@ namespace ileapy
             if (HomePage.complete) // check if the user actually updated the amount of money in on the card or nah
             {
                 this.RefreshButton_Click(sender, e);
-                // this is not the good solution:
-                isLoggingOut = true;
-                this.Close();
-                // for context (for future me if I forget this):
-                // if I add money to a new user when I try to convert them it doesn't work
-                // I get 0 as the balance. the solution as to reload the app.
-                // idk why I will check but for now this is as good as it is gonna get
+                HomePage.complete = false;
             }
+        }
+        private void RefreshCard(int index)
+        {
+            double amount = DataManager.RefreshAmount(index);
+            tabList[index].Currency_ComboBox.SelectedIndex = tabList[index].Currency_ComboBox.FindString("Euro");
+            Selected_Currency = "eur";
+            set_balance(amount,index);
         }
         private void RefreshButton_Click(Object sender, EventArgs e)
         {
-            double amount=Cache.RefreshAmount(this.cardsTabControl.SelectedIndex);
-            int index = this.cardsTabControl.SelectedIndex;
-            tabList[index].Currency_ComboBox.SelectedIndex = tabList[index].Currency_ComboBox.FindString("Euro");
-            Selected_Currency = "eur";
-            set_balance(amount);
+            RefreshCard(this.cardsTabControl.SelectedIndex);
         }
         private void logout_button_Click(object sender, EventArgs e)
         {
@@ -191,11 +188,27 @@ namespace ileapy
         private void new_card_button_Click(object sender, EventArgs e)
         {
             this.add_tab();
-            Cache.add_card();
+            DataManager.add_card();
             int i=Cache.card_list.Count-1;
             this.set_balance(Cache.card_list[i].Amount, i);
             //CurrencyIniter.InitCurrecnys(ref this.Currencys, ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency,ref this.cardsTabControl);
             CurrencyIniter.InitCurrecnys(i, ref this.Currencys, ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency);
+        }
+
+        private void new_transaction_button_Click(object sender, EventArgs e)
+        {
+            if (Cache.card_list.Count <= 0) return;
+            //Console.WriteLine("new transaction inited");
+            var transaction = new TransactionMenu();
+            transaction.ShowDialog();
+            if (HomePage.complete) // check if the user actually transfered money or nah
+            {
+                for (int i = 0; i < Cache.card_list.Count; ++i)
+                {
+                    this.RefreshCard(i);
+                }
+                HomePage.complete = false;
+            }
         }
     }
 }
