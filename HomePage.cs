@@ -48,8 +48,15 @@ namespace ileapy
             this.transfer_dataGridView.Columns.Add("Description", "Description");
             this.transfer_dataGridView.Columns.Add("Amount", "Amount");
             this.transfer_dataGridView.Columns.Add("Date","Date");
-
             this.fill_transactions();
+
+            // display messages
+            this.message_dataGridView.AllowUserToAddRows = false;
+            this.message_dataGridView.RowHeadersVisible = false;
+            this.message_dataGridView.Columns.Add("Receiver", "Receiver");
+            this.message_dataGridView.Columns.Add("Description", "Message");
+            this.message_dataGridView.Columns.Add("Date", "Date");
+            this.fill_message();
 
             this.usersTableAdapter = Program.GlobalDataManager.usersTableAdapter;
             this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
@@ -92,6 +99,10 @@ namespace ileapy
             catch(Exception E){
             Console.WriteLine("cooked: "+E.Message);
             }
+        }
+        private void fill_message()
+        {
+
         }
         void cardsTabControl_Resize(object sender, EventArgs e)
         {
@@ -163,8 +174,20 @@ namespace ileapy
             money.ShowDialog(); // block any actions until this page closes
             if (HomePage.complete) // check if the user actually updated the amount of money in on the card or nah
             {
-                this.RefreshButton_Click(sender, e);
+                //this.RefreshButton_Click(sender, e);
+                this.refresh();
                 HomePage.complete = false;
+            }
+        }
+        void refresh()
+        {
+            this.transfer_dataGridView.Rows.Clear();
+            this.fill_transactions();
+            this.message_dataGridView.Rows.Clear();
+            this.fill_message();
+            for (int i = 0; i < Cache.card_list.Count; ++i)
+            {
+                this.RefreshCard(i);
             }
         }
         private void RefreshCard(int index)
@@ -233,12 +256,18 @@ namespace ileapy
             transaction.ShowDialog();
             if (HomePage.complete) // check if the user actually transfered money or nah
             {
-                for (int i = 0; i < Cache.card_list.Count; ++i)
-                {
-                    this.RefreshCard(i);
-                }
+                //for (int i = 0; i < Cache.card_list.Count; ++i)
+                //{
+                //    this.RefreshCard(i);
+                //}
+                this.refresh();
                 HomePage.complete = false;
             }
+        }
+
+        private void new_message_button_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -46,11 +46,13 @@ namespace ileapy
             this.usersTableAdapter = new ileapy.ileapyDataSetTableAdapters.UsersTableAdapter();
             this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.message_dataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.transfer_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.message_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // logout_button
@@ -121,6 +123,7 @@ namespace ileapy
             this.new_message_button.TabIndex = 8;
             this.new_message_button.Text = "New Message";
             this.new_message_button.UseVisualStyleBackColor = true;
+            this.new_message_button.Click += new System.EventHandler(this.new_message_button_Click);
             // 
             // transfer_dataGridView
             // 
@@ -171,11 +174,20 @@ namespace ileapy
             this.usersBindingSource.DataMember = "Users";
             this.usersBindingSource.DataSource = this.ileapyDataSet;
             // 
+            // message_dataGridView
+            // 
+            this.message_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.message_dataGridView.Location = new System.Drawing.Point(471, 371);
+            this.message_dataGridView.Name = "message_dataGridView";
+            this.message_dataGridView.Size = new System.Drawing.Size(317, 110);
+            this.message_dataGridView.TabIndex = 10;
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.message_dataGridView);
             this.Controls.Add(this.transfer_dataGridView);
             this.Controls.Add(this.new_message_button);
             this.Controls.Add(this.new_transaction_button);
@@ -190,6 +202,7 @@ namespace ileapy
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.message_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -212,6 +225,7 @@ namespace ileapy
         private System.Windows.Forms.Button new_transaction_button;
         private System.Windows.Forms.Button new_message_button;
         private System.Windows.Forms.DataGridView transfer_dataGridView;
+        private System.Windows.Forms.DataGridView message_dataGridView;
     }
 }
 
