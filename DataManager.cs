@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -16,10 +17,12 @@ namespace ileapy
         private System.Windows.Forms.BindingSource cardsBindingSource;
         private System.Windows.Forms.BindingSource transactionsBindingSource;
         private System.Windows.Forms.BindingSource usersBindingSource;
+        private System.Windows.Forms.BindingSource messagesBindingSource;
         public ileapyDataSetTableAdapters.TableAdapterManager tableAdapterManager;
         public ileapyDataSetTableAdapters.CardsTableAdapter cardsTableAdapter;
         public ileapyDataSetTableAdapters.TransactionsTableAdapter transactionsTableAdapter;
         public ileapyDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
+        public ileapyDataSetTableAdapters.MessagesTableAdapter messagesTableAdapter;
 
         public DataManager()
         {
@@ -34,6 +37,7 @@ namespace ileapy
             this.cardsTableAdapter = new ileapyDataSetTableAdapters.CardsTableAdapter();
             this.transactionsTableAdapter = new ileapyDataSetTableAdapters.TransactionsTableAdapter();
             this.usersTableAdapter = new ileapyDataSetTableAdapters.UsersTableAdapter();
+            this.messagesTableAdapter = new ileapyDataSetTableAdapters.MessagesTableAdapter();
 
             // IMPORTANT: keep all TableAdapters on the same database file.
             // The generated adapters currently use different Settings connection strings:
@@ -43,6 +47,7 @@ namespace ileapy
             var connectionString = this.cardsTableAdapter.Connection.ConnectionString;
             this.transactionsTableAdapter.Connection.ConnectionString = connectionString;
             this.usersTableAdapter.Connection.ConnectionString = connectionString;
+            this.messagesTableAdapter.Connection.ConnectionString = connectionString;
 
             this.tableAdapterManager = new ileapyDataSetTableAdapters.TableAdapterManager();
             this.tableAdapterManager.CardsTableAdapter = this.cardsTableAdapter;
@@ -53,6 +58,7 @@ namespace ileapy
             this.cardsBindingSource = new System.Windows.Forms.BindingSource();
             this.transactionsBindingSource = new System.Windows.Forms.BindingSource();
             this.usersBindingSource = new System.Windows.Forms.BindingSource();
+            this.messagesBindingSource = new System.Windows.Forms.BindingSource();
 
             this.cardsBindingSource.DataSource = this.ileapyDataSet;
             this.cardsBindingSource.DataMember = "Cards";
@@ -63,15 +69,20 @@ namespace ileapy
             this.usersBindingSource.DataSource = this.ileapyDataSet;
             this.usersBindingSource.DataMember = "Users";
 
+            this.messagesBindingSource.DataSource = this.ileapyDataSet;
+            this.messagesBindingSource.DataMember = "Messages";
+
             this.usersTableAdapter.Fill(this.ileapyDataSet.Users);
             this.cardsTableAdapter.Fill(this.ileapyDataSet.Cards);
             this.transactionsTableAdapter.Fill(this.ileapyDataSet.Transactions);
+            this.messagesTableAdapter.Fill(this.ileapyDataSet.Messages);
 
             this.ileapyDataSet.EnforceConstraints = false;
 
             this.usersTableAdapter.Connection.Open();
             this.cardsTableAdapter.Connection.Open();
             this.transactionsTableAdapter.Connection.Open();
+            this.messagesTableAdapter.Connection.Open();
         }
         public static void add_card()
         {
@@ -175,7 +186,7 @@ namespace ileapy
             double new_amount_from = amount_from- amount;
             double new_amount_to = amount_to +amount;
 
-            Console.WriteLine(new_amount_from);
+            //Console.WriteLine(new_amount_from);
 
             var insert1 = Program.GlobalDataManager.transactionsTableAdapter.InsertTransaction(
                 id_from, id_to, (decimal)amount, message, date, 1
@@ -208,10 +219,32 @@ namespace ileapy
         {
             return Program.GlobalDataManager.transactionsTableAdapter.GetTransactions(id);
         }
+        public static dynamic GetMessagesById(int id)
+        {
+            ileapyDataSet.MessagesDataTable data = new ileapyDataSet.MessagesDataTable();
+            try
+            {
+                Program.GlobalDataManager.messagesTableAdapter.GetMessages(id, ref data);
+            }
+            catch { }
+            return data;
+        }
+        public static void SendMessage(int from_id,int to_id,string message)
+        {
+            var date = DateTime.Now;
+            //Console.WriteLine(date.ToString());
+            var insert=Program.GlobalDataManager.messagesTableAdapter.InsertQuery(from_id, to_id, message,date);
+            //Console.WriteLine(insert);
+            if (insert <= 0)
+            {
+                throw new Exception("failed to insert message");
+            }
+        }
 
         public BindingSource CardsBindingSource => cardsBindingSource;
         public BindingSource TransactionsBindingSource => transactionsBindingSource;
         public BindingSource UsersBindingSource => usersBindingSource;
+        public BindingSource MessagesBindingSource => messagesBindingSource;
 
         public ileapyDataSet DataSet => ileapyDataSet;
     }

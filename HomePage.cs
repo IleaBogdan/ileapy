@@ -97,12 +97,28 @@ namespace ileapy
                 }
             }
             catch(Exception E){
-            Console.WriteLine("cooked: "+E.Message);
+                Console.WriteLine("cooked: "+E.Message);
             }
+        }
+        private void add_message_row(string Receiver, string message, DateTime date)
+        {
+            this.message_dataGridView.Rows.Add(Receiver, message, date);
         }
         private void fill_message()
         {
-
+            try
+            {
+                var messages_data = DataManager.GetMessagesById(Cache.user_id);
+                Console.WriteLine(messages_data.Rows.Count);
+                foreach (var row in messages_data.Rows)
+                {
+                    this.add_message_row(row["OtherUserUname"], row["Message"].ToString(),(DateTime)row["Date"]);
+                }
+            }
+            catch (Exception E)
+            {
+                Console.WriteLine("cooked: " + E.Message);
+            }
         }
         void cardsTabControl_Resize(object sender, EventArgs e)
         {
@@ -267,7 +283,14 @@ namespace ileapy
 
         private void new_message_button_Click(object sender, EventArgs e)
         {
-
+            HomePage.complete = false;
+            MessageMenu mmenu=new MessageMenu();
+            mmenu.ShowDialog();
+            if (HomePage.complete)
+            {
+                this.refresh();
+                HomePage.complete = false;
+            }
         }
     }
 }

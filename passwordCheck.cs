@@ -14,6 +14,7 @@ namespace ileapy
     {
         public passwordCheck()
         {
+            this.FormBorderStyle = FormBorderStyle.FixedSingle;
             InitializeComponent();
             fail_counter = 0;
         }

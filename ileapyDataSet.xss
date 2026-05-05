@@ -8,7 +8,7 @@
   <Shapes>
     <Shape ID="DesignTable:Cards" ZOrder="6" X="94" Y="75" Height="319" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="168" />
     <Shape ID="DesignTable:Users" ZOrder="5" X="483" Y="373" Height="343" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
-    <Shape ID="DesignTable:Messages" ZOrder="4" X="181" Y="494" Height="300" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="232" />
+    <Shape ID="DesignTable:Messages" ZOrder="4" X="79" Y="490" Height="321" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="232" />
     <Shape ID="DesignTable:Transactions" ZOrder="1" X="583" Y="72" Height="248" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="159" />
   </Shapes>
   <Connectors>
@@ -32,11 +32,11 @@
       <RoutePoints>
         <Point>
           <X>483</X>
-          <Y>578</Y>
+          <Y>601</Y>
         </Point>
         <Point>
-          <X>339</X>
-          <Y>578</Y>
+          <X>379</X>
+          <Y>601</Y>
         </Point>
       </RoutePoints>
     </Connector>

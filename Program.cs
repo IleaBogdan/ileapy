@@ -19,31 +19,38 @@ namespace ileapy
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            GlobalDataManager = new DataManager();
-            while (program_state)
+            try
             {
-                if (!Cache.IsLogin())
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                GlobalDataManager = new DataManager();
+                while (program_state)
                 {
-                    using (var loginPage = new LoginPage())
+                    if (!Cache.IsLogin())
                     {
-                        Application.Run(loginPage);
-                        if (!Cache.IsLogin())
+                        using (var loginPage = new LoginPage())
                         {
-                            // User closed login page without logging in
-                            return;
+                            Application.Run(loginPage);
+                            if (!Cache.IsLogin())
+                            {
+                                // User closed login page without logging in
+                                return;
+                            }
                         }
                     }
-                }
 
-                if (Cache.IsLogin())
-                {
-                    Cache.init();
-                    homePage = new HomePage();
-                    Application.Run(homePage);
+                    if (Cache.IsLogin())
+                    {
+                        Cache.init();
+                        homePage = new HomePage();
+                        Application.Run(homePage);
+                    }
                 }
+            }
+            catch
+            {
+                Main();
             }
         }
         public static string hash(string text) // password hashing (it is not true hashing but it is not plain text either)
