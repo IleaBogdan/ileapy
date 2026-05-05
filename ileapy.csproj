@@ -72,6 +72,12 @@
       <DependentUpon>AddPage.cs</DependentUpon>
     </Compile>
     <Compile Include="Pair.cs" />
+    <Compile Include="passwordCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="passwordCheck.Designer.cs">
+      <DependentUpon>passwordCheck.cs</DependentUpon>
+    </Compile>
     <Compile Include="TransactionMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +116,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="LoginPage.resx">
       <DependentUpon>LoginPage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="passwordCheck.resx">
+      <DependentUpon>passwordCheck.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -15,6 +15,7 @@ namespace ileapy
     {
         public static DataManager GlobalDataManager { get; private set; }
         public static bool program_state = true;
+        public static HomePage homePage = null;
         [STAThread]
         static void Main()
         {
@@ -40,10 +41,8 @@ namespace ileapy
                 if (Cache.IsLogin())
                 {
                     Cache.init();
-                    using (var homePage = new HomePage())
-                    {
-                        Application.Run(homePage);
-                    }
+                    homePage = new HomePage();
+                    Application.Run(homePage);
                 }
             }
         }
@@ -58,6 +57,11 @@ namespace ileapy
                 hashString += String.Format("{0:x2}", x);
             }
             return hashString;
+        }
+        public static void kill()
+        {
+            program_state = false;
+            homePage.Close();
         }
     }
 }
