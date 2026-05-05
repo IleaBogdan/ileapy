@@ -83,7 +83,7 @@ namespace ileapy
                 var transactions_data = DataManager.GetTransactionsById(Cache.user_id);
                 foreach (var row in transactions_data.Rows)
                 {
-                    this.add_transaction_row("badea",row["Message"].ToString(),
+                    this.add_transaction_row(row["ToOwnerName"],row["Message"].ToString(),
                         (double)row["Amount"],
                         (DateTime)row["Date"]
                     );

@@ -4205,9 +4205,11 @@ SELECT Id, ID_From, ID_To, Amount, Message, Date, Type FROM Transactions WHERE (
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT        Id, ID_From, ID_To, CASE WHEN t .Type = 1 THEN - t .Amount ELSE t .Amount END AS Amount, Message, Date, Type
-FROM            Transactions AS t
-WHERE        (ID_From IN
+            this._commandCollection[1].CommandText = @"SELECT        t.Id, t.ID_From, t.ID_To, CASE WHEN t .Type = 1 THEN - t .Amount ELSE t .Amount END AS Amount, t.Message, t.Date, t.Type, u.Uname AS ToOwnerName
+FROM            Transactions AS t LEFT OUTER JOIN
+                         Cards AS c_to ON t.ID_To = c_to.Id LEFT OUTER JOIN
+                         Users AS u ON c_to.OwnerID = u.Id
+WHERE        (t.ID_From IN
                              (SELECT        Id
                                FROM            Cards AS c
                                WHERE        (OwnerID = @Id)))";
