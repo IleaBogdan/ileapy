@@ -204,6 +204,10 @@ namespace ileapy
                 throw new Exception("failed to update card amount");
             }
         }
+        public static dynamic GetTransactionsById(int id)
+        {
+            return Program.GlobalDataManager.transactionsTableAdapter.GetTransactions(id);
+        }
 
         public BindingSource CardsBindingSource => cardsBindingSource;
         public BindingSource TransactionsBindingSource => transactionsBindingSource;

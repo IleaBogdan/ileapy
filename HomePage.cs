@@ -41,6 +41,15 @@ namespace ileapy
                 CurrencyIniter.InitCurrecnys(i,ref this.Currencys,ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency);
             }
 
+            // display transactions
+            this.transfer_dataGridView.AllowUserToAddRows=false;
+            this.transfer_dataGridView.RowHeadersVisible=false;
+            this.transfer_dataGridView.Columns.Add("Receiver", "Receiver");
+            this.transfer_dataGridView.Columns.Add("Description", "Description");
+            this.transfer_dataGridView.Columns.Add("Amount", "Amount");
+            this.transfer_dataGridView.Columns.Add("Date","Date");
+
+            this.fill_transactions();
 
             this.usersTableAdapter = Program.GlobalDataManager.usersTableAdapter;
             this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
@@ -63,6 +72,27 @@ namespace ileapy
             }
         }
 
+        private void add_transaction_row(string Receiver,string message,double amount, DateTime date)
+        {
+            this.transfer_dataGridView.Rows.Add(Receiver, message, amount, date); 
+        }
+        private void fill_transactions()
+        {
+            try
+            {
+                var transactions_data = DataManager.GetTransactionsById(Cache.user_id);
+                foreach (var row in transactions_data.Rows)
+                {
+                    this.add_transaction_row("badea",row["Message"].ToString(),
+                        (double)row["Amount"],
+                        (DateTime)row["Date"]
+                    );
+                }
+            }
+            catch(Exception E){
+            Console.WriteLine("cooked: "+E.Message);
+            }
+        }
         void cardsTabControl_Resize(object sender, EventArgs e)
         {
             // Re-center controls for all tabs when the tab control is resized
