@@ -31,6 +31,13 @@ namespace ileapy
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.logout_button = new System.Windows.Forms.Button();
+            this.username_display_label = new System.Windows.Forms.Label();
+            this.cardsTabControl = new System.Windows.Forms.TabControl();
+            this.new_card_button = new System.Windows.Forms.Button();
+            this.new_transaction_button = new System.Windows.Forms.Button();
+            this.new_message_button = new System.Windows.Forms.Button();
+            this.transfer_dataGridView = new System.Windows.Forms.DataGridView();
             this.ileapyDataSet = new ileapy.ileapyDataSet();
             this.cardsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cardsTableAdapter = new ileapy.ileapyDataSetTableAdapters.CardsTableAdapter();
@@ -39,56 +46,14 @@ namespace ileapy
             this.usersTableAdapter = new ileapy.ileapyDataSetTableAdapters.UsersTableAdapter();
             this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.logout_button = new System.Windows.Forms.Button();
-            this.username_display_label = new System.Windows.Forms.Label();
-            this.cardsTabControl = new System.Windows.Forms.TabControl();
-            this.new_card_button = new System.Windows.Forms.Button();
-            this.new_transaction_button = new System.Windows.Forms.Button();
+            this.message_dataGridView = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.transfer_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.message_dataGridView)).BeginInit();
             this.SuspendLayout();
-            // 
-            // ileapyDataSet
-            // 
-            this.ileapyDataSet.DataSetName = "ileapyDataSet";
-            this.ileapyDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
-            // cardsBindingSource
-            // 
-            this.cardsBindingSource.DataMember = "Cards";
-            this.cardsBindingSource.DataSource = this.ileapyDataSet;
-            // 
-            // cardsTableAdapter
-            // 
-            this.cardsTableAdapter.ClearBeforeFill = true;
-            // 
-            // tableAdapterManager
-            // 
-            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
-            this.tableAdapterManager.CardsTableAdapter = this.cardsTableAdapter;
-            this.tableAdapterManager.TransactionsTableAdapter = this.transactionsTableAdapter;
-            this.tableAdapterManager.UpdateOrder = ileapy.ileapyDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
-            this.tableAdapterManager.UsersTableAdapter = this.usersTableAdapter;
-            // 
-            // transactionsTableAdapter
-            // 
-            this.transactionsTableAdapter.ClearBeforeFill = true;
-            // 
-            // usersTableAdapter
-            // 
-            this.usersTableAdapter.ClearBeforeFill = true;
-            // 
-            // transactionsBindingSource
-            // 
-            this.transactionsBindingSource.DataMember = "Transactions";
-            this.transactionsBindingSource.DataSource = this.ileapyDataSet;
-            // 
-            // usersBindingSource
-            // 
-            this.usersBindingSource.DataMember = "Users";
-            this.usersBindingSource.DataSource = this.ileapyDataSet;
             // 
             // logout_button
             // 
@@ -131,7 +96,7 @@ namespace ileapy
             // new_card_button
             // 
             this.new_card_button.Location = new System.Drawing.Point(16, 112);
-            this.new_card_button.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.new_card_button.Margin = new System.Windows.Forms.Padding(2);
             this.new_card_button.Name = "new_card_button";
             this.new_card_button.Size = new System.Drawing.Size(61, 37);
             this.new_card_button.TabIndex = 6;
@@ -142,7 +107,7 @@ namespace ileapy
             // new_transaction_button
             // 
             this.new_transaction_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.new_transaction_button.Location = new System.Drawing.Point(688, 103);
+            this.new_transaction_button.Location = new System.Drawing.Point(688, 12);
             this.new_transaction_button.Name = "new_transaction_button";
             this.new_transaction_button.Size = new System.Drawing.Size(100, 54);
             this.new_transaction_button.TabIndex = 7;
@@ -150,11 +115,81 @@ namespace ileapy
             this.new_transaction_button.UseVisualStyleBackColor = true;
             this.new_transaction_button.Click += new System.EventHandler(this.new_transaction_button_Click);
             // 
+            // new_message_button
+            // 
+            this.new_message_button.Location = new System.Drawing.Point(688, 103);
+            this.new_message_button.Name = "new_message_button";
+            this.new_message_button.Size = new System.Drawing.Size(100, 54);
+            this.new_message_button.TabIndex = 8;
+            this.new_message_button.Text = "New Message";
+            this.new_message_button.UseVisualStyleBackColor = true;
+            this.new_message_button.Click += new System.EventHandler(this.new_message_button_Click);
+            // 
+            // transfer_dataGridView
+            // 
+            this.transfer_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.transfer_dataGridView.Location = new System.Drawing.Point(471, 246);
+            this.transfer_dataGridView.Name = "transfer_dataGridView";
+            this.transfer_dataGridView.Size = new System.Drawing.Size(317, 110);
+            this.transfer_dataGridView.TabIndex = 9;
+            // 
+            // ileapyDataSet
+            // 
+            this.ileapyDataSet.DataSetName = "ileapyDataSet";
+            this.ileapyDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            // 
+            // cardsBindingSource
+            // 
+            this.cardsBindingSource.DataMember = "Cards";
+            this.cardsBindingSource.DataSource = this.ileapyDataSet;
+            // 
+            // cardsTableAdapter
+            // 
+            this.cardsTableAdapter.ClearBeforeFill = true;
+            // 
+            // tableAdapterManager
+            // 
+            this.tableAdapterManager.BackupDataSetBeforeUpdate = false;
+            this.tableAdapterManager.CardsTableAdapter = this.cardsTableAdapter;
+            this.tableAdapterManager.MessagesTableAdapter = null;
+            this.tableAdapterManager.TransactionsTableAdapter = this.transactionsTableAdapter;
+            this.tableAdapterManager.UpdateOrder = ileapy.ileapyDataSetTableAdapters.TableAdapterManager.UpdateOrderOption.InsertUpdateDelete;
+            this.tableAdapterManager.UsersTableAdapter = this.usersTableAdapter;
+            // 
+            // transactionsTableAdapter
+            // 
+            this.transactionsTableAdapter.ClearBeforeFill = true;
+            // 
+            // usersTableAdapter
+            // 
+            this.usersTableAdapter.ClearBeforeFill = true;
+            // 
+            // transactionsBindingSource
+            // 
+            this.transactionsBindingSource.DataMember = "Transactions";
+            this.transactionsBindingSource.DataSource = this.ileapyDataSet;
+            // 
+            // usersBindingSource
+            // 
+            this.usersBindingSource.DataMember = "Users";
+            this.usersBindingSource.DataSource = this.ileapyDataSet;
+            // 
+            // message_dataGridView
+            // 
+            this.message_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.message_dataGridView.Location = new System.Drawing.Point(471, 371);
+            this.message_dataGridView.Name = "message_dataGridView";
+            this.message_dataGridView.Size = new System.Drawing.Size(317, 110);
+            this.message_dataGridView.TabIndex = 10;
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 507);
+            this.Controls.Add(this.message_dataGridView);
+            this.Controls.Add(this.transfer_dataGridView);
+            this.Controls.Add(this.new_message_button);
             this.Controls.Add(this.new_transaction_button);
             this.Controls.Add(this.new_card_button);
             this.Controls.Add(this.cardsTabControl);
@@ -162,10 +197,12 @@ namespace ileapy
             this.Controls.Add(this.logout_button);
             this.Name = "HomePage";
             this.Text = "Home Page";
+            ((System.ComponentModel.ISupportInitialize)(this.transfer_dataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.message_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,6 +223,9 @@ namespace ileapy
         private System.Windows.Forms.TabControl cardsTabControl;
         private System.Windows.Forms.Button new_card_button;
         private System.Windows.Forms.Button new_transaction_button;
+        private System.Windows.Forms.Button new_message_button;
+        private System.Windows.Forms.DataGridView transfer_dataGridView;
+        private System.Windows.Forms.DataGridView message_dataGridView;
     }
 }
 

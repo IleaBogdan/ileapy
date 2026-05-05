@@ -41,6 +41,22 @@ namespace ileapy
                 CurrencyIniter.InitCurrecnys(i,ref this.Currencys,ref this.RevCurrencys, ref this.tabList, ref this.Selected_Currency);
             }
 
+            // display transactions
+            this.transfer_dataGridView.AllowUserToAddRows=false;
+            this.transfer_dataGridView.RowHeadersVisible=false;
+            this.transfer_dataGridView.Columns.Add("Receiver", "Receiver");
+            this.transfer_dataGridView.Columns.Add("Description", "Description");
+            this.transfer_dataGridView.Columns.Add("Amount", "Amount");
+            this.transfer_dataGridView.Columns.Add("Date","Date");
+            this.fill_transactions();
+
+            // display messages
+            this.message_dataGridView.AllowUserToAddRows = false;
+            this.message_dataGridView.RowHeadersVisible = false;
+            this.message_dataGridView.Columns.Add("Receiver", "Receiver");
+            this.message_dataGridView.Columns.Add("Description", "Message");
+            this.message_dataGridView.Columns.Add("Date", "Date");
+            this.fill_message();
 
             this.usersTableAdapter = Program.GlobalDataManager.usersTableAdapter;
             this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
@@ -63,6 +79,47 @@ namespace ileapy
             }
         }
 
+        private void add_transaction_row(string Receiver,string message,double amount, DateTime date)
+        {
+            this.transfer_dataGridView.Rows.Add(Receiver, message, amount, date); 
+        }
+        private void fill_transactions()
+        {
+            try
+            {
+                var transactions_data = DataManager.GetTransactionsById(Cache.user_id);
+                foreach (var row in transactions_data.Rows)
+                {
+                    this.add_transaction_row(row["ToOwnerName"],row["Message"].ToString(),
+                        (double)row["Amount"],
+                        (DateTime)row["Date"]
+                    );
+                }
+            }
+            catch(Exception E){
+                Console.WriteLine("cooked: "+E.Message);
+            }
+        }
+        private void add_message_row(string Receiver, string message, DateTime date)
+        {
+            this.message_dataGridView.Rows.Add(Receiver, message, date);
+        }
+        private void fill_message()
+        {
+            try
+            {
+                var messages_data = DataManager.GetMessagesById(Cache.user_id);
+                Console.WriteLine(messages_data.Rows.Count);
+                foreach (var row in messages_data.Rows)
+                {
+                    this.add_message_row(row["OtherUserUname"], row["Message"].ToString(),(DateTime)row["Date"]);
+                }
+            }
+            catch (Exception E)
+            {
+                Console.WriteLine("cooked: " + E.Message);
+            }
+        }
         void cardsTabControl_Resize(object sender, EventArgs e)
         {
             // Re-center controls for all tabs when the tab control is resized
@@ -133,8 +190,20 @@ namespace ileapy
             money.ShowDialog(); // block any actions until this page closes
             if (HomePage.complete) // check if the user actually updated the amount of money in on the card or nah
             {
-                this.RefreshButton_Click(sender, e);
+                //this.RefreshButton_Click(sender, e);
+                this.refresh();
                 HomePage.complete = false;
+            }
+        }
+        void refresh()
+        {
+            this.transfer_dataGridView.Rows.Clear();
+            this.fill_transactions();
+            this.message_dataGridView.Rows.Clear();
+            this.fill_message();
+            for (int i = 0; i < Cache.card_list.Count; ++i)
+            {
+                this.RefreshCard(i);
             }
         }
         private void RefreshCard(int index)
@@ -203,10 +272,23 @@ namespace ileapy
             transaction.ShowDialog();
             if (HomePage.complete) // check if the user actually transfered money or nah
             {
-                for (int i = 0; i < Cache.card_list.Count; ++i)
-                {
-                    this.RefreshCard(i);
-                }
+                //for (int i = 0; i < Cache.card_list.Count; ++i)
+                //{
+                //    this.RefreshCard(i);
+                //}
+                this.refresh();
+                HomePage.complete = false;
+            }
+        }
+
+        private void new_message_button_Click(object sender, EventArgs e)
+        {
+            HomePage.complete = false;
+            MessageMenu mmenu=new MessageMenu();
+            mmenu.ShowDialog();
+            if (HomePage.complete)
+            {
+                this.refresh();
                 HomePage.complete = false;
             }
         }

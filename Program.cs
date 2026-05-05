@@ -15,36 +15,42 @@ namespace ileapy
     {
         public static DataManager GlobalDataManager { get; private set; }
         public static bool program_state = true;
+        public static HomePage homePage = null;
         [STAThread]
         static void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-
-            GlobalDataManager = new DataManager();
-            while (program_state)
+            try
             {
-                if (!Cache.IsLogin())
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                GlobalDataManager = new DataManager();
+                while (program_state)
                 {
-                    using (var loginPage = new LoginPage())
+                    if (!Cache.IsLogin())
                     {
-                        Application.Run(loginPage);
-                        if (!Cache.IsLogin())
+                        using (var loginPage = new LoginPage())
                         {
-                            // User closed login page without logging in
-                            return;
+                            Application.Run(loginPage);
+                            if (!Cache.IsLogin())
+                            {
+                                // User closed login page without logging in
+                                return;
+                            }
                         }
                     }
-                }
 
-                if (Cache.IsLogin())
-                {
-                    Cache.init();
-                    using (var homePage = new HomePage())
+                    if (Cache.IsLogin())
                     {
+                        Cache.init();
+                        homePage = new HomePage();
                         Application.Run(homePage);
                     }
                 }
+            }
+            catch
+            {
+                Main();
             }
         }
         public static string hash(string text) // password hashing (it is not true hashing but it is not plain text either)
@@ -58,6 +64,11 @@ namespace ileapy
                 hashString += String.Format("{0:x2}", x);
             }
             return hashString;
+        }
+        public static void kill()
+        {
+            program_state = false;
+            homePage.Close();
         }
     }
 }

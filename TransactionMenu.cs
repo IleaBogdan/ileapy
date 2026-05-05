@@ -174,6 +174,7 @@ namespace ileapy
                 this.trigger_error();
             }
         }
+        public static bool should_close = false;
         private void next_button3_Click(object sender, EventArgs e)
         {
             try
@@ -186,7 +187,19 @@ namespace ileapy
                     return;
                 }
                 this.transaction_progressBar.Value += 33;
+                // I need to check for the user password again here before I transfer
+                passwordCheck passwordMenu = new passwordCheck();
+                should_close = false;
+                passwordMenu.ShowDialog();
+                if(!should_close)
+                {
+                    this.Close();
+                    return;
+                }
+                should_close = false;
+
                 DataManager.MakeTransaction(this.from_id, this.to_id, message, this.transfer_amount);
+                HomePage.complete=true;
                 this.Close();
             }
             catch
