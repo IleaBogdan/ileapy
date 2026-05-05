@@ -35,6 +35,15 @@ namespace ileapy
             this.transactionsTableAdapter = new ileapyDataSetTableAdapters.TransactionsTableAdapter();
             this.usersTableAdapter = new ileapyDataSetTableAdapters.UsersTableAdapter();
 
+            // IMPORTANT: keep all TableAdapters on the same database file.
+            // The generated adapters currently use different Settings connection strings:
+            // - CardsTableAdapter: ileapyConnectionString (absolute path MDF)
+            // - TransactionsTableAdapter/UsersTableAdapter: ileapyConnectionString1 (|DataDirectory| MDF copy)
+            // If left as-is, cards update and transactions insert happen in different MDFs.
+            var connectionString = this.cardsTableAdapter.Connection.ConnectionString;
+            this.transactionsTableAdapter.Connection.ConnectionString = connectionString;
+            this.usersTableAdapter.Connection.ConnectionString = connectionString;
+
             this.tableAdapterManager = new ileapyDataSetTableAdapters.TableAdapterManager();
             this.tableAdapterManager.CardsTableAdapter = this.cardsTableAdapter;
             this.tableAdapterManager.TransactionsTableAdapter = this.transactionsTableAdapter;
@@ -134,6 +143,67 @@ namespace ileapy
             }
 
             return card_list;
+        }
+        public static int GetCardId(string CardNumber,string CVC,string ExpDate)
+        {
+            try
+            {
+                var x = Program.GlobalDataManager.cardsTableAdapter.GetCardIdBy(CardNumber, CVC, ExpDate);
+                //Console.WriteLine(x);
+                return (int)x;
+            }
+            catch
+            {
+                return -1;
+            }
+        }
+        public static void MakeTransaction(int id_from,int id_to,string message,double amount)
+        {
+            if (id_to == id_from||amount<1.0) throw new Exception("same card id");
+            // one transaction that has type 1 and the other has type 2
+            var date = DateTime.Now;
+
+            // get current card data
+            double amount_from=(double)Program.GlobalDataManager.cardsTableAdapter.GetAmountById(id_from);
+            double amount_to=(double)Program.GlobalDataManager.cardsTableAdapter.GetAmountById(id_to);
+
+            if (amount_from < amount)
+            {
+                throw new Exception("insufficient funds");
+            }
+
+            double new_amount_from = amount_from- amount;
+            double new_amount_to = amount_to +amount;
+
+            Console.WriteLine(new_amount_from);
+
+            // insert transactions (use the generated Insert that targets [dbo].[Transactions] and [Date])
+            var insert1 = Program.GlobalDataManager.transactionsTableAdapter.Insert(
+                id_from, id_to, (decimal)amount, message, date, 1
+            );
+            var insert2 = Program.GlobalDataManager.transactionsTableAdapter.Insert(
+                id_to, id_from, (decimal)amount, message, date, 2
+            );
+            if (insert1 <= 0 || insert2 <= 0)
+            {
+                throw new Exception("failed to insert transaction");
+            }
+
+            // refresh in-memory table so UI bound to this dataset can see the new rows
+            Program.GlobalDataManager.transactionsTableAdapter.Fill(Program.GlobalDataManager.DataSet.Transactions);
+
+            // update the 2 cards
+            // UpdateCardAmount signature is (Amount, Id, Original_Amount) (optimistic concurrency).
+            var updTo = Program.GlobalDataManager.cardsTableAdapter.UpdateCardAmount(
+                (decimal)new_amount_to, id_to, (decimal)amount_to
+            );
+            var updFrom = Program.GlobalDataManager.cardsTableAdapter.UpdateCardAmount(
+                (decimal)new_amount_from, id_from, (decimal)amount_from
+            );
+            if (updTo <= 0 || updFrom <= 0)
+            {
+                throw new Exception("failed to update card amount");
+            }
         }
 
         public BindingSource CardsBindingSource => cardsBindingSource;
