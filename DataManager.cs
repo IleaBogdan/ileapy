@@ -177,11 +177,10 @@ namespace ileapy
 
             Console.WriteLine(new_amount_from);
 
-            // insert transactions (use the generated Insert that targets [dbo].[Transactions] and [Date])
-            var insert1 = Program.GlobalDataManager.transactionsTableAdapter.Insert(
+            var insert1 = Program.GlobalDataManager.transactionsTableAdapter.InsertTransaction(
                 id_from, id_to, (decimal)amount, message, date, 1
             );
-            var insert2 = Program.GlobalDataManager.transactionsTableAdapter.Insert(
+            var insert2 = Program.GlobalDataManager.transactionsTableAdapter.InsertTransaction(
                 id_to, id_from, (decimal)amount, message, date, 2
             );
             if (insert1 <= 0 || insert2 <= 0)
@@ -189,7 +188,7 @@ namespace ileapy
                 throw new Exception("failed to insert transaction");
             }
 
-            // refresh in-memory table so UI bound to this dataset can see the new rows
+            // refresh in-memory table so I can see the new rows
             Program.GlobalDataManager.transactionsTableAdapter.Fill(Program.GlobalDataManager.DataSet.Transactions);
 
             // update the 2 cards
