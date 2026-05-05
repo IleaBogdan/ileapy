@@ -32,10 +32,12 @@
             this.from_select_label = new System.Windows.Forms.Label();
             this.from_card_comboBox = new System.Windows.Forms.ComboBox();
             this.transfer_sum_textBox = new System.Windows.Forms.TextBox();
+            this.message_textBox = new System.Windows.Forms.TextBox();
             this.transfer_amount_label = new System.Windows.Forms.Label();
             this.max_amount_label = new System.Windows.Forms.Label();
             this.next_button1 = new System.Windows.Forms.Button();
             this.next_button2 = new System.Windows.Forms.Button();
+            this.next_button3 = new System.Windows.Forms.Button();
             this.to_who_label = new System.Windows.Forms.Label();
             this.user_select_comboBox = new System.Windows.Forms.ComboBox();
             this.select_to_card_label_label = new System.Windows.Forms.Label();
@@ -122,6 +124,16 @@
             this.next_button2.UseVisualStyleBackColor = true;
             this.next_button2.Click += new System.EventHandler(this.next_button2_Click);
             // 
+            // next_button3
+            // 
+            this.next_button3.Location = new System.Drawing.Point(12, 179);
+            this.next_button3.Name = "next_button3";
+            this.next_button3.Size = new System.Drawing.Size(166, 40);
+            this.next_button3.TabIndex = 7;
+            this.next_button3.Text = "Next";
+            this.next_button3.UseVisualStyleBackColor = true;
+            this.next_button3.Click += new System.EventHandler(this.next_button3_Click);
+            // 
             // to_who_label
             // 
             this.to_who_label.AutoSize = true;
@@ -156,6 +168,16 @@
             this.select_to_card_comboBox.Name = "select_to_card_comboBox";
             this.select_to_card_comboBox.Size = new System.Drawing.Size(264, 24);
             this.select_to_card_comboBox.TabIndex = 7;
+            //
+            // message_sum_textBox 
+            //
+            this.message_textBox.Location = new System.Drawing.Point(12, 15);
+            this.message_textBox.Margin = new System.Windows.Forms.Padding(4);
+            this.message_textBox.Name = "message_textBox";
+            this.message_textBox.Size = new System.Drawing.Size(159, 100);
+            this.message_textBox.TabIndex = 3;
+            this.message_textBox.Text = "Money Transaction";
+
             // 
             // TransactionMenu
             // 
@@ -183,10 +205,12 @@
         private System.Windows.Forms.Label from_select_label;
         private System.Windows.Forms.ComboBox from_card_comboBox;
         private System.Windows.Forms.TextBox transfer_sum_textBox;
+        private System.Windows.Forms.TextBox message_textBox;
         private System.Windows.Forms.Label transfer_amount_label;
         private System.Windows.Forms.Label max_amount_label;
         private System.Windows.Forms.Button next_button1;
         private System.Windows.Forms.Button next_button2;
+        private System.Windows.Forms.Button next_button3;
         private System.Windows.Forms.Label to_who_label;
         private System.Windows.Forms.ComboBox user_select_comboBox;
         private System.Windows.Forms.Label select_to_card_label_label;

@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.SqlServer.Server;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -30,13 +32,20 @@ namespace ileapy
 
         private void from_card_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //Console.WriteLine(this.from_card_comboBox.SelectedIndex);
-            int idx= this.from_card_comboBox.SelectedIndex;
+            try
+            {
+                //Console.WriteLine(this.from_card_comboBox.SelectedIndex);
+                int idx = this.from_card_comboBox.SelectedIndex;
 
-            cardSelected = idx;
+                cardSelected = idx;
 
-            // here we will change the max transfer amount label
-            this.max_amount_label.Text="<= " + Cache.card_list[idx].Amount.ToString();
+                // here we will change the max transfer amount label
+                this.max_amount_label.Text = "<= " + Cache.card_list[idx].Amount.ToString();
+            }
+            catch
+            {
+                this.trigger_error();
+            }
         }
 
         private void next_button1_Click(object sender, EventArgs e)
@@ -65,6 +74,12 @@ namespace ileapy
                     System.Windows.Forms.MessageBox.Show("You don't have enough money!");
                     return;
                 }
+                if (Tamount < 1.0)
+                {
+                    System.Windows.Forms.MessageBox.Show("Transfer to small");
+                    return;
+                }
+                this.transfer_amount= Tamount;
                 this.transaction_progressBar.Value += 34;
                 this.Controls.Remove(this.max_amount_label);
                 this.Controls.Remove(this.transfer_amount_label);
@@ -100,20 +115,25 @@ namespace ileapy
             }
         }
 
+        private List<string> cards_list_to = new List<string>();
         private void user_select_comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
             {
-                Console.WriteLine(this.user_select_comboBox.SelectedIndex);
+                //Console.WriteLine(this.user_select_comboBox.SelectedIndex);
                 this.select_to_card_comboBox.Items.Clear();
                 var cards = DataManager.QueryCardNumbers(this.ids_and_unames[this.user_select_comboBox.SelectedIndex].First);
                 int i = 1;
                 map.Clear();
+                cards_list_to.Clear();
                 foreach (var card in cards.First)
                 {
+                    if (card == Cache.card_list[cardSelected].CardNumber) continue;
                     this.select_to_card_comboBox.Items.Add("Card " + i.ToString() + ": " + MyStrings.BlurCard((string)card));
                     map[(string)card] = cards.Second[i - 1];
+                    //Console.WriteLine(cards.Second[i - 1]);
                     ++i;
+                    cards_list_to.Add((string)card);
                 }
                 this.select_to_card_comboBox.SelectedIndex = 0;
             }
@@ -122,19 +142,57 @@ namespace ileapy
                 return;
             }
         }
+        private void trigger_error()
+        {
+            System.Windows.Forms.MessageBox.Show("An unexpected error happened, please try again later!");
+            this.Close();
+        }
+        private int to_id { get; set; }
+        private int from_id {  get; set; }
+        private double transfer_amount { get; set; }
         private void next_button2_Click(object sender, EventArgs e)
         {
-            // I need to get the card id of the user it transfers from 
-            // also the card id of the user transfer to
-            // probably I can make a query that gets ids based on the users ids
+            try
+            {
+                this.to_id = map[cards_list_to[this.select_to_card_comboBox.SelectedIndex]];
+                this.from_id = DataManager.GetCardId(Cache.card_list[cardSelected].CardNumber, Cache.card_list[cardSelected].CVC, Cache.card_list[cardSelected].ExpDate);
+                if (this.from_id < 0)
+                {
+                    throw new Exception("failed something, goodluck");
+                }
+                this.transaction_progressBar.Value += 33;
+                this.Controls.Remove(this.next_button2);
+                this.Controls.Remove(this.to_who_label);
+                this.Controls.Remove(this.user_select_comboBox);
+                this.Controls.Remove(this.select_to_card_label_label);
+                this.Controls.Remove(this.select_to_card_comboBox);
 
-            // I then need to make a 2 querys to insert data in the transaction menu
-            // I need to set type=1 to be a from user 1 to user 2
-            // and set type=2 to be from user 2 to user 1
-            // I will not store negative values in the table
-            // type=3 is for messages
-            // I will probably use the same table for that.
-            // or maybe not. idk
+                this.Controls.Add(this.next_button3);
+                this.Controls.Add(this.message_textBox);
+            }
+            catch{
+                this.trigger_error();
+            }
+        }
+        private void next_button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string message = (string)this.message_textBox.Text;
+                //Console.Write(message);
+                if (message.Length == 0)
+                {
+                    System.Windows.Forms.MessageBox.Show("You must type a message!");
+                    return;
+                }
+                this.transaction_progressBar.Value += 33;
+                DataManager.MakeTransaction(this.from_id, this.to_id, message, this.transfer_amount);
+                this.Close();
+            }
+            catch
+            {
+                this.trigger_error();
+            }
         }
     }
 }
