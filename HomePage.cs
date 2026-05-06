@@ -58,6 +58,16 @@ namespace ileapy
             this.message_dataGridView.Columns.Add("Date", "Date");
             this.fill_message();
 
+            // display leaderboard
+            this.leaderboard_dataGridView.AllowUserToAddRows = false;
+            this.leaderboard_dataGridView.RowHeadersVisible = false;
+            this.leaderboard_dataGridView.Columns.Add("Name", "Name");
+            this.leaderboard_dataGridView.Columns.Add("Number Of Messages", "Number Of Messages");
+            this.leaderboard_dataGridView.Columns.Add("Transfer Sum", "Transfer Sum");
+            this.leaderboard_dataGridView.BackgroundColor= Color.Green;
+            this.fill_leaderboard();
+
+
             this.usersTableAdapter = Program.GlobalDataManager.usersTableAdapter;
             this.transactionsTableAdapter = Program.GlobalDataManager.transactionsTableAdapter;
             this.cardsTableAdapter = Program.GlobalDataManager.cardsTableAdapter;
@@ -109,10 +119,29 @@ namespace ileapy
             try
             {
                 var messages_data = DataManager.GetMessagesById(Cache.user_id);
-                Console.WriteLine(messages_data.Rows.Count);
+                //Console.WriteLine(messages_data.Rows.Count);
                 foreach (var row in messages_data.Rows)
                 {
                     this.add_message_row(row["OtherUserUname"], row["Message"].ToString(),(DateTime)row["Date"]);
+                }
+            }
+            catch (Exception E)
+            {
+                Console.WriteLine("cooked: " + E.Message);
+            }
+        }
+        private void add_leaderboard_row(string Name,int Number_Of_Messages,double Transfer_Sum)
+        {
+            this.leaderboard_dataGridView.Rows.Add(Name,Number_Of_Messages,Transfer_Sum);
+        }
+        private void fill_leaderboard()
+        {
+            try
+            {
+                var leaderboard_data = DataManager.GetLeaderboard();
+                foreach(var row in leaderboard_data.Rows)
+                {
+                    this.add_leaderboard_row(row["Uname"].ToString(), (int)row["messages_sent"], (double)row["total_transactions_amount"]);
                 }
             }
             catch (Exception E)
@@ -201,6 +230,8 @@ namespace ileapy
             this.fill_transactions();
             this.message_dataGridView.Rows.Clear();
             this.fill_message();
+            this.leaderboard_dataGridView.Rows.Clear();
+            this.fill_leaderboard();
             for (int i = 0; i < Cache.card_list.Count; ++i)
             {
                 this.RefreshCard(i);

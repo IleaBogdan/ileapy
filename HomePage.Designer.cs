@@ -47,12 +47,14 @@ namespace ileapy
             this.transactionsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.message_dataGridView = new System.Windows.Forms.DataGridView();
+            this.leaderboard_dataGridView = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.transfer_dataGridView)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ileapyDataSet)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cardsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.message_dataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leaderboard_dataGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // logout_button
@@ -60,9 +62,10 @@ namespace ileapy
             this.logout_button.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.logout_button.Location = new System.Drawing.Point(16, 447);
+            this.logout_button.Location = new System.Drawing.Point(21, 550);
+            this.logout_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.logout_button.Name = "logout_button";
-            this.logout_button.Size = new System.Drawing.Size(61, 48);
+            this.logout_button.Size = new System.Drawing.Size(81, 59);
             this.logout_button.TabIndex = 3;
             this.logout_button.Text = "Log out";
             this.logout_button.UseVisualStyleBackColor = true;
@@ -75,9 +78,10 @@ namespace ileapy
             | System.Windows.Forms.AnchorStyles.Right)));
             this.username_display_label.AutoSize = true;
             this.username_display_label.Font = new System.Drawing.Font("Arial", 15F);
-            this.username_display_label.Location = new System.Drawing.Point(12, 9);
+            this.username_display_label.Location = new System.Drawing.Point(16, 11);
+            this.username_display_label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.username_display_label.Name = "username_display_label";
-            this.username_display_label.Size = new System.Drawing.Size(63, 23);
+            this.username_display_label.Size = new System.Drawing.Size(79, 28);
             this.username_display_label.TabIndex = 4;
             this.username_display_label.Text = "User: ";
             // 
@@ -86,19 +90,20 @@ namespace ileapy
             this.cardsTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.cardsTabControl.Location = new System.Drawing.Point(100, 6);
+            this.cardsTabControl.Location = new System.Drawing.Point(133, 7);
+            this.cardsTabControl.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cardsTabControl.Multiline = true;
             this.cardsTabControl.Name = "cardsTabControl";
             this.cardsTabControl.SelectedIndex = 0;
-            this.cardsTabControl.Size = new System.Drawing.Size(547, 234);
+            this.cardsTabControl.Size = new System.Drawing.Size(729, 288);
             this.cardsTabControl.TabIndex = 5;
             // 
             // new_card_button
             // 
-            this.new_card_button.Location = new System.Drawing.Point(16, 112);
-            this.new_card_button.Margin = new System.Windows.Forms.Padding(2);
+            this.new_card_button.Location = new System.Drawing.Point(21, 138);
+            this.new_card_button.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.new_card_button.Name = "new_card_button";
-            this.new_card_button.Size = new System.Drawing.Size(61, 37);
+            this.new_card_button.Size = new System.Drawing.Size(81, 46);
             this.new_card_button.TabIndex = 6;
             this.new_card_button.Text = "New Card";
             this.new_card_button.UseVisualStyleBackColor = true;
@@ -107,9 +112,10 @@ namespace ileapy
             // new_transaction_button
             // 
             this.new_transaction_button.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.new_transaction_button.Location = new System.Drawing.Point(688, 12);
+            this.new_transaction_button.Location = new System.Drawing.Point(917, 15);
+            this.new_transaction_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.new_transaction_button.Name = "new_transaction_button";
-            this.new_transaction_button.Size = new System.Drawing.Size(100, 54);
+            this.new_transaction_button.Size = new System.Drawing.Size(133, 66);
             this.new_transaction_button.TabIndex = 7;
             this.new_transaction_button.Text = "New Transaction";
             this.new_transaction_button.UseVisualStyleBackColor = true;
@@ -117,9 +123,10 @@ namespace ileapy
             // 
             // new_message_button
             // 
-            this.new_message_button.Location = new System.Drawing.Point(688, 103);
+            this.new_message_button.Location = new System.Drawing.Point(917, 127);
+            this.new_message_button.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.new_message_button.Name = "new_message_button";
-            this.new_message_button.Size = new System.Drawing.Size(100, 54);
+            this.new_message_button.Size = new System.Drawing.Size(133, 66);
             this.new_message_button.TabIndex = 8;
             this.new_message_button.Text = "New Message";
             this.new_message_button.UseVisualStyleBackColor = true;
@@ -128,9 +135,11 @@ namespace ileapy
             // transfer_dataGridView
             // 
             this.transfer_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.transfer_dataGridView.Location = new System.Drawing.Point(471, 246);
+            this.transfer_dataGridView.Location = new System.Drawing.Point(628, 303);
+            this.transfer_dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.transfer_dataGridView.Name = "transfer_dataGridView";
-            this.transfer_dataGridView.Size = new System.Drawing.Size(317, 110);
+            this.transfer_dataGridView.RowHeadersWidth = 51;
+            this.transfer_dataGridView.Size = new System.Drawing.Size(423, 135);
             this.transfer_dataGridView.TabIndex = 9;
             // 
             // ileapyDataSet
@@ -177,16 +186,29 @@ namespace ileapy
             // message_dataGridView
             // 
             this.message_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.message_dataGridView.Location = new System.Drawing.Point(471, 371);
+            this.message_dataGridView.Location = new System.Drawing.Point(628, 457);
+            this.message_dataGridView.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.message_dataGridView.Name = "message_dataGridView";
-            this.message_dataGridView.Size = new System.Drawing.Size(317, 110);
+            this.message_dataGridView.RowHeadersWidth = 51;
+            this.message_dataGridView.Size = new System.Drawing.Size(423, 135);
             this.message_dataGridView.TabIndex = 10;
+            // 
+            // leaderboard_dataGridView
+            // 
+            this.leaderboard_dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.leaderboard_dataGridView.Location = new System.Drawing.Point(133, 303);
+            this.leaderboard_dataGridView.Name = "leaderboard_dataGridView";
+            this.leaderboard_dataGridView.RowHeadersWidth = 51;
+            this.leaderboard_dataGridView.RowTemplate.Height = 24;
+            this.leaderboard_dataGridView.Size = new System.Drawing.Size(393, 289);
+            this.leaderboard_dataGridView.TabIndex = 11;
             // 
             // HomePage
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 507);
+            this.ClientSize = new System.Drawing.Size(1067, 624);
+            this.Controls.Add(this.leaderboard_dataGridView);
             this.Controls.Add(this.message_dataGridView);
             this.Controls.Add(this.transfer_dataGridView);
             this.Controls.Add(this.new_message_button);
@@ -195,6 +217,7 @@ namespace ileapy
             this.Controls.Add(this.cardsTabControl);
             this.Controls.Add(this.username_display_label);
             this.Controls.Add(this.logout_button);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "HomePage";
             this.Text = "Home Page";
             ((System.ComponentModel.ISupportInitialize)(this.transfer_dataGridView)).EndInit();
@@ -203,6 +226,7 @@ namespace ileapy
             ((System.ComponentModel.ISupportInitialize)(this.transactionsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.message_dataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.leaderboard_dataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -226,6 +250,7 @@ namespace ileapy
         private System.Windows.Forms.Button new_message_button;
         private System.Windows.Forms.DataGridView transfer_dataGridView;
         private System.Windows.Forms.DataGridView message_dataGridView;
+        private System.Windows.Forms.DataGridView leaderboard_dataGridView;
     }
 }
 
