@@ -306,6 +306,24 @@ FROM            Users</CommandText>
                   </DbCommand>
                 </SelectCommand>
               </DbSource>
+              <DbSource ConnectionRef="ileapyConnectionString (Settings)" DbObjectName="dbo.Users" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBy2" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetLeaderBoard" GeneratorSourceName="FillBy2" GetMethodModifier="Public" GetMethodName="GetLeaderBoard" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetLeaderBoard" UserSourceName="FillBy2">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT u.Id, u.Uname, COALESCE (m.message_count, 0) AS messages_sent, COALESCE (t_1.transaction_sum, 0) AS total_transactions_amount
+FROM     Users AS u LEFT OUTER JOIN
+(SELECT ID_From, COUNT(*) AS message_count
+FROM      Messages
+GROUP BY ID_From) AS m ON u.Id = m.ID_From LEFT OUTER JOIN
+(SELECT c.OwnerID, SUM(t.Amount) AS transaction_sum
+FROM      Transactions AS t INNER JOIN
+                    Cards AS c ON t.ID_From = c.Id
+WHERE   (t.Type = 1)
+GROUP BY c.OwnerID) AS t_1 ON u.Id = t_1.OwnerID
+ORDER BY messages_sent DESC, total_transactions_amount DESC;</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
             </Sources>
           </TableAdapter>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="MessagesTableAdapter" GeneratorDataComponentClassName="MessagesTableAdapter" Name="Messages" UserDataComponentName="MessagesTableAdapter">
@@ -601,22 +619,22 @@ VALUES        (@ID_From,@ID_To,@Amount,@Message,@Date,@Type)</CommandText>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
-        <xs:element name="Transactions" msprop:Generator_RowClassName="TransactionsRow" msprop:Generator_RowEvHandlerName="TransactionsRowChangeEventHandler" msprop:Generator_RowDeletedName="TransactionsRowDeleted" msprop:Generator_RowDeletingName="TransactionsRowDeleting" msprop:Generator_RowEvArgName="TransactionsRowChangeEvent" msprop:Generator_TablePropName="Transactions" msprop:Generator_RowChangedName="TransactionsRowChanged" msprop:Generator_UserTableName="Transactions" msprop:Generator_RowChangingName="TransactionsRowChanging" msprop:Generator_TableClassName="TransactionsDataTable" msprop:Generator_TableVarName="tableTransactions">
+        <xs:element name="Transactions" msprop:Generator_RowEvHandlerName="TransactionsRowChangeEventHandler" msprop:Generator_RowDeletedName="TransactionsRowDeleted" msprop:Generator_RowDeletingName="TransactionsRowDeleting" msprop:Generator_RowEvArgName="TransactionsRowChangeEvent" msprop:Generator_TablePropName="Transactions" msprop:Generator_RowChangedName="TransactionsRowChanged" msprop:Generator_UserTableName="Transactions" msprop:Generator_RowChangingName="TransactionsRowChanging" msprop:Generator_RowClassName="TransactionsRow" msprop:Generator_TableClassName="TransactionsDataTable" msprop:Generator_TableVarName="tableTransactions">
           <xs:complexType>
             <xs:sequence>
-              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_UserColumnName="Id" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_ColumnVarNameInTable="columnId" type="xs:int" />
-              <xs:element name="ID_From" msprop:Generator_UserColumnName="ID_From" msprop:Generator_ColumnPropNameInTable="ID_FromColumn" msprop:Generator_ColumnPropNameInRow="ID_From" msprop:Generator_ColumnVarNameInTable="columnID_From" type="xs:int" />
-              <xs:element name="ID_To" msprop:Generator_UserColumnName="ID_To" msprop:Generator_ColumnPropNameInTable="ID_ToColumn" msprop:Generator_ColumnPropNameInRow="ID_To" msprop:Generator_ColumnVarNameInTable="columnID_To" type="xs:int" />
-              <xs:element name="Amount" msprop:Generator_UserColumnName="Amount" msprop:Generator_ColumnPropNameInTable="AmountColumn" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" type="xs:decimal" />
-              <xs:element name="Message" msprop:Generator_UserColumnName="Message" msprop:Generator_ColumnPropNameInTable="MessageColumn" msprop:Generator_ColumnPropNameInRow="Message" msprop:Generator_ColumnVarNameInTable="columnMessage">
+              <xs:element name="Id" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnPropNameInTable="IdColumn" msprop:Generator_ColumnPropNameInRow="Id" msprop:Generator_UserColumnName="Id" msprop:Generator_ColumnVarNameInTable="columnId" type="xs:int" />
+              <xs:element name="ID_From" msprop:Generator_ColumnPropNameInTable="ID_FromColumn" msprop:Generator_ColumnPropNameInRow="ID_From" msprop:Generator_UserColumnName="ID_From" msprop:Generator_ColumnVarNameInTable="columnID_From" type="xs:int" />
+              <xs:element name="ID_To" msprop:Generator_ColumnPropNameInTable="ID_ToColumn" msprop:Generator_ColumnPropNameInRow="ID_To" msprop:Generator_UserColumnName="ID_To" msprop:Generator_ColumnVarNameInTable="columnID_To" type="xs:int" />
+              <xs:element name="Amount" msprop:Generator_ColumnPropNameInTable="AmountColumn" msprop:Generator_ColumnPropNameInRow="Amount" msprop:Generator_UserColumnName="Amount" msprop:Generator_ColumnVarNameInTable="columnAmount" type="xs:decimal" />
+              <xs:element name="Message" msprop:Generator_ColumnPropNameInTable="MessageColumn" msprop:Generator_ColumnPropNameInRow="Message" msprop:Generator_UserColumnName="Message" msprop:Generator_ColumnVarNameInTable="columnMessage">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
                     <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="Date" msprop:Generator_UserColumnName="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_ColumnVarNameInTable="columnDate" type="xs:dateTime" />
-              <xs:element name="Type" msprop:Generator_UserColumnName="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_ColumnVarNameInTable="columnType" type="xs:int" />
+              <xs:element name="Date" msprop:Generator_ColumnPropNameInTable="DateColumn" msprop:Generator_ColumnPropNameInRow="Date" msprop:Generator_UserColumnName="Date" msprop:Generator_ColumnVarNameInTable="columnDate" type="xs:dateTime" />
+              <xs:element name="Type" msprop:Generator_ColumnPropNameInTable="TypeColumn" msprop:Generator_ColumnPropNameInRow="Type" msprop:Generator_UserColumnName="Type" msprop:Generator_ColumnVarNameInTable="columnType" type="xs:int" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -641,9 +659,9 @@ VALUES        (@ID_From,@ID_To,@Amount,@Message,@Date,@Type)</CommandText>
   </xs:element>
   <xs:annotation>
     <xs:appinfo>
-      <msdata:Relationship name="Users_Cards" msdata:parent="Users" msdata:child="Cards" msdata:parentkey="Id" msdata:childkey="OwnerID" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Cards" msprop:Generator_RelationVarName="relationUsers_Cards" msprop:Generator_ChildPropName="GetCardsRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Cards" />
-      <msdata:Relationship name="Users_Messages" msdata:parent="Users" msdata:child="Messages" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Messages" msprop:Generator_RelationVarName="relationUsers_Messages" msprop:Generator_ChildPropName="GetMessagesRows" msprop:Generator_ParentPropName="UsersRow" msprop:Generator_UserRelationName="Users_Messages" />
-      <msdata:Relationship name="Cards_Transactions" msdata:parent="Cards" msdata:child="Transactions" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Cards" msprop:Generator_UserChildTable="Transactions" msprop:Generator_RelationVarName="relationCards_Transactions" msprop:Generator_ChildPropName="GetTransactionsRows" msprop:Generator_UserRelationName="Cards_Transactions" msprop:Generator_ParentPropName="CardsRow" />
+      <msdata:Relationship name="Users_Cards" msdata:parent="Users" msdata:child="Cards" msdata:parentkey="Id" msdata:childkey="OwnerID" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Cards" msprop:Generator_RelationVarName="relationUsers_Cards" msprop:Generator_ChildPropName="GetCardsRows" msprop:Generator_UserRelationName="Users_Cards" msprop:Generator_ParentPropName="UsersRow" />
+      <msdata:Relationship name="Users_Messages" msdata:parent="Users" msdata:child="Messages" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Users" msprop:Generator_UserChildTable="Messages" msprop:Generator_RelationVarName="relationUsers_Messages" msprop:Generator_ChildPropName="GetMessagesRows" msprop:Generator_UserRelationName="Users_Messages" msprop:Generator_ParentPropName="UsersRow" />
+      <msdata:Relationship name="Cards_Transactions" msdata:parent="Cards" msdata:child="Transactions" msdata:parentkey="Id" msdata:childkey="ID_From" msprop:Generator_UserParentTable="Cards" msprop:Generator_UserChildTable="Transactions" msprop:Generator_RelationVarName="relationCards_Transactions" msprop:Generator_ChildPropName="GetTransactionsRows" msprop:Generator_ParentPropName="CardsRow" msprop:Generator_UserRelationName="Cards_Transactions" />
     </xs:appinfo>
   </xs:annotation>
 </xs:schema>

@@ -240,6 +240,16 @@ namespace ileapy
                 throw new Exception("failed to insert message");
             }
         }
+        public static dynamic GetLeaderboard()
+        {
+            ileapyDataSet.UsersDataTable data = new ileapyDataSet.UsersDataTable();
+            try
+            {
+                Program.GlobalDataManager.usersTableAdapter.GetLeaderBoard(ref data);
+            }
+            catch { }
+            return data;
+        }
 
         public BindingSource CardsBindingSource => cardsBindingSource;
         public BindingSource TransactionsBindingSource => transactionsBindingSource;
