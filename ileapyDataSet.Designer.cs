@@ -3243,15 +3243,15 @@ GROUP BY u.Id, u.Uname, u.Hpass, u.Mail, u.Phone, u.BDay, u.Address";
             this._commandCollection[5].Connection = this.Connection;
             this._commandCollection[5].CommandText = @"SELECT u.Id, u.Uname, COALESCE (m.message_count, 0) AS messages_sent, COALESCE (t_1.transaction_sum, 0) AS total_transactions_amount
 FROM     Users AS u LEFT OUTER JOIN
-                      (SELECT ID_From, COUNT(*) AS message_count
-                       FROM      Messages
-                       GROUP BY ID_From) AS m ON u.Id = m.ID_From LEFT OUTER JOIN
-                      (SELECT c.OwnerID, SUM(t.Amount) AS transaction_sum
-                       FROM      Transactions AS t INNER JOIN
-                                         Cards AS c ON t.ID_From = c.Id
-                       WHERE   (t.Type = 1)
-                       GROUP BY c.OwnerID) AS t_1 ON u.Id = t_1.OwnerID
-ORDER BY messages_sent DESC, total_transactions_amount DESC";
+(SELECT ID_From, COUNT(*) AS message_count
+FROM      Messages
+GROUP BY ID_From) AS m ON u.Id = m.ID_From LEFT OUTER JOIN
+(SELECT c.OwnerID, SUM(t.Amount) AS transaction_sum
+FROM      Transactions AS t INNER JOIN
+                    Cards AS c ON t.ID_From = c.Id
+WHERE   (t.Type = 1)
+GROUP BY c.OwnerID) AS t_1 ON u.Id = t_1.OwnerID
+ORDER BY messages_sent DESC, total_transactions_amount DESC;";
             this._commandCollection[5].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3354,7 +3354,7 @@ ORDER BY messages_sent DESC, total_transactions_amount DESC";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, false)]
-        public virtual int idkforgor(ileapyDataSet.UsersDataTable dataTable) {
+        public virtual int FillBy2(ileapyDataSet.UsersDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[5];
             if ((this.ClearBeforeFill == true)) {
                 dataTable.Clear();
@@ -3367,7 +3367,8 @@ ORDER BY messages_sent DESC, total_transactions_amount DESC";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ileapyDataSet.UsersDataTable GetLeaderBoard(ref ileapyDataSet.UsersDataTable dataTable) {
+        public virtual ileapyDataSet.UsersDataTable GetLeaderBoard(ref ileapyDataSet.UsersDataTable dataTable)
+        {
             this.Adapter.SelectCommand = this.CommandCollection[5];
             this.Adapter.Fill(dataTable);
             return dataTable;
