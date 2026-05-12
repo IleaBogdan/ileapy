@@ -3367,8 +3367,7 @@ ORDER BY messages_sent DESC, total_transactions_amount DESC;";
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "17.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, false)]
-        public virtual ileapyDataSet.UsersDataTable GetLeaderBoard(ref ileapyDataSet.UsersDataTable dataTable)
-        {
+        public virtual ileapyDataSet.UsersDataTable GetLeaderBoard(ref ileapyDataSet.UsersDataTable dataTable) {
             this.Adapter.SelectCommand = this.CommandCollection[5];
             this.Adapter.Fill(dataTable);
             return dataTable;
@@ -3888,12 +3887,15 @@ SELECT Id, ID_From, ID_To, Message, Date FROM Messages WHERE (Id = @Id)";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = @"SELECT        m.Id, m.ID_From, m.ID_To, m.Message, m.Date, CASE WHEN m.ID_From = @UserId THEN u_to.Uname ELSE u_from.Uname END AS OtherUserUname
+            this._commandCollection[1].CommandText = @"/* GetMessages with HAVING (filters conversations with more than 1 message)*/
+SELECT        m.Id, m.ID_From, m.ID_To, m.Message, m.Date, CASE WHEN m.ID_From = @UserId THEN u_to.Uname ELSE u_from.Uname END AS OtherUserUname
 FROM            Messages AS m LEFT OUTER JOIN
                          Users AS u_from ON m.ID_From = u_from.Id LEFT OUTER JOIN
                          Users AS u_to ON m.ID_To = u_to.Id
 WHERE        (m.ID_From = @UserId) OR
-                         (m.ID_To = @UserId)";
+                         (m.ID_To = @UserId)
+GROUP BY m.Id, m.ID_From, m.ID_To, m.Message, m.Date, u_from.Uname, u_to.Uname
+HAVING        (COUNT(CASE WHEN m.ID_From = @UserId THEN m.ID_To ELSE m.ID_From END) >= 1)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@UserId", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "ID_From", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._commandCollection[2] = new global::System.Data.SqlClient.SqlCommand();

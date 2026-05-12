@@ -15,6 +15,15 @@ FROM            Messages AS m LEFT OUTER JOIN
                          Users AS u_from ON m.ID_From = u_from.Id LEFT OUTER JOIN
                          Users AS u_to ON m.ID_To = u_to.Id
 WHERE        (m.ID_From = @UserId) OR (m.ID_To = @UserId);
+-- GetMessages with HAVING
+SELECT        m.Id, m.ID_From, m.ID_To, m.Message, m.Date, CASE WHEN m.ID_From = @UserId THEN u_to.Uname ELSE u_from.Uname END AS OtherUserUname
+FROM            Messages AS m LEFT OUTER JOIN
+                         Users AS u_from ON m.ID_From = u_from.Id LEFT OUTER JOIN
+                         Users AS u_to ON m.ID_To = u_to.Id
+WHERE        (m.ID_From = @UserId) OR
+                         (m.ID_To = @UserId)
+GROUP BY m.Id, m.ID_From, m.ID_To, m.Message, m.Date, u_from.Uname, u_to.Uname
+HAVING        (COUNT(CASE WHEN m.ID_From = @UserId THEN m.ID_To ELSE m.ID_From END) >= 1);
 
 -- InsertQuery
 INSERT INTO Messages
